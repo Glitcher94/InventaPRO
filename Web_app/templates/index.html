@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<br>
+<div class="uptext">
+    <h1>
+        Template homepage
+    </h1>
+</div>
+<div class="test_button" 
+style="
+    display: flex;
+    justify-content: center;
+">
+    <a class="btn btn-primary btn-lg" href="{% url 'panel_inv_eb' %}" role="button">
+        Ir a Panel Inventario
+    </a>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{%extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div style="
+    width: 20%;
+    background-color: lightskyblue;
+    padding: 1%;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;">
+    <h1>
+        InventaPRO
+    </h1>
+    <br>
+    <br>
+    <div class="nav flex-column nav-pills lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active btn btn-outline-primary" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
+            type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
+        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+            type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Agregar Producto</button>
+        <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
+            type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="true">Históricos</button>
+        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
+            type="button" role="tab" aria-controls="v-pills-messages" aria-selected="true">Solicitudes Aprobadas</button>
+    </div>
+</div>
+<div style="
+        background-color: #96305A;
+        width: 80%;
+        padding: 2%;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;">
+    <div class="tab-content" id="v-pills-tabContent" style="height: 90vh;">
+        <div class=" tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"
+            tabindex="0">
+            <h3 style="padding-left: 10%;">
+                Listado de Productos
+            </h3>
+            <div style="
+                background-color: lightblue;
+                border-radius: 15px;
+                padding: 1%;
+                border-style: solid;
+                height: 83vh;">
+                Here's some text...
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+            tabindex="0">
+            <h3 style="padding-left: 10%;">
+                Actualizar stock
+            </h3>
+            <div style="
+                background-color: lightblue;
+                border-radius: 15px;
+                padding: 1%;
+                border-style: solid;
+                height: 83vh;">
+                other...
+            </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
+            tabindex="0">
+            <h3 style="padding-left: 10%;">
+                Registros históricos
+            </h3>
+            <div  style="
+            background-color: lightblue;
+            border-radius: 15px;
+            padding: 1%;
+            border-style: solid;
+            height: 83vh;">
+            LOREM IPSUM...
+            </div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
+            tabindex="0">
+            <h3 style="padding-left: 10%;">
+                Lista Solicitudes
+            </h3>
+            <div  style="
+            background-color: lightblue;
+            border-radius: 15px;
+            padding: 1%;
+            border-style: solid;
+            height: 83vh;">
+            whaterever tomorrow...
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
