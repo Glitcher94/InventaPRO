@@ -3,3 +3,63 @@ body{
     justify-content: center;
     color: blueviolet;
 }
+
+/* CSS de Login Sahrline*/ 
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.contenedor {
+    background-color: #007bff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    width: 300px;
+}
+
+h2 {
+    color: #fff;
+}
+
+.campo {
+    margin: 10px 0;
+    text-align: left;
+}
+
+label {
+    display: block;
+    color: #fff;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #0056b3;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #003b80;
+}
