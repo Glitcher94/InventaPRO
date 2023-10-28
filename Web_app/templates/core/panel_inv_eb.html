@@ -68,6 +68,7 @@
                 .scrollable-container {
                     max-height: 75vh;
                     overflow-y: auto; /* Agregamos un scroll vertical a este contenedor */
+                    border-style: solid;
                 }
             </style>
             
@@ -76,16 +77,16 @@
                     <div class="table-container">
                         <div class="table-row">
                             <div class="table-cell">
-                                <h4><strong>ID Producto</strong></h4>
+                                <h5><strong>ID Producto</strong></h5>
                             </div>
                             <div class="table-cell">
-                                <h4><strong>Nombre Producto</strong></h4>
+                                <h5><strong>Nombre Producto</strong></h5>
                             </div>
                             <div class="table-cell">
-                                <h4><strong>Categoría</strong></h4>
+                                <h5><strong>Categoría</strong></h5>
                             </div>
                             <div class="table-cell">
-                                <h4><strong>Cantidad</strong></h4>
+                                <h5><strong>Cantidad</strong></h5>
                             </div>
                         </div>
                         {% for Producto in productos %}
