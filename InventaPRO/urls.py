@@ -21,6 +21,6 @@ from Web_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name="index"),
-    path('panel_inv_eb', views.panel_inv_eb, name="panel_inv_eb")
+    path('', views.index, name="core/index"),
+    path('core/ panel_inv_eb', views.panel_inv_eb, name="core/panel_inv_eb")
 ]
