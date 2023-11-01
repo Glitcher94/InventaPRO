@@ -22,7 +22,8 @@
         <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
             type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="true">Históricos</button>
         <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-            type="button" role="tab" aria-controls="v-pills-messages" aria-selected="true">Solicitudes realizadas</button>
+            type="button" role="tab" aria-controls="v-pills-messages" aria-selected="true">Solicitudes
+            realizadas</button>
     </div>
 </div>
 <div style="
@@ -37,7 +38,7 @@
             tabindex="0">
             <h3 style="padding-left: 10%;">
                 Listado de Productos
-            </h3>           
+            </h3>
             <style>
                 .table-outer-container {
                     background-color: lightblue;
@@ -45,33 +46,37 @@
                     padding: 2%;
                     border-style: solid;
                     height: 83vh;
-                    overflow: hidden; /* Evitamos el desbordamiento horizontal */
+                    overflow: hidden;
+                    /* Evitamos el desbordamiento horizontal */
                 }
-            
+
                 .table-container {
                     display: table;
-                    width: 100%; /* Aseguramos que la tabla se ajuste al contenedor */
-                    border-collapse: collapse; /* Colapsamos los bordes de la tabla */
+                    width: 100%;
+                    /* Aseguramos que la tabla se ajuste al contenedor */
+                    border-collapse: collapse;
+                    /* Colapsamos los bordes de la tabla */
                 }
-            
+
                 .table-row {
                     display: table-row;
                 }
-            
+
                 .table-cell {
                     display: table-cell;
                     min-width: 150px;
                     padding: 5px;
                     border: 1px solid #000;
                 }
-            
+
                 .scrollable-container {
                     max-height: 75vh;
-                    overflow-y: auto; /* Agregamos un scroll vertical a este contenedor */
+                    overflow-y: auto;
+                    /* Agregamos un scroll vertical a este contenedor */
                     border-style: solid;
                 }
             </style>
-            
+
             <div class="table-outer-container">
                 <div class="scrollable-container">
                     <div class="table-container">
@@ -108,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
@@ -122,8 +127,33 @@
                 padding: 1%;
                 border-style: solid;
                 height: 83vh;">
-                
-                ->
+
+                <h2>Registro de Usuario</h2>
+                    <label for="nombres">Nombres:</label>
+                    <input type="text" id="nombres" name="nombres"><br>
+
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" id="apellidos" name="apellidos"><br>
+
+                    <label for="rol">Rol:</label>
+                    <select id="rol" name="rol">
+                        <option value="">Seleccionar</option>
+                        <option value="Trabajadora Social">Trabajadora Social</option>
+                        <option value="DIDECO">DIDECO</option>
+                        <option value="Bodeguero">Bodeguero</option>
+
+                    </select><br>
+
+                    <label for="nombre-usuario">Nombre de Usuario:</label>
+                    <input type="text" id="nombre-usuario" name="nombre-usuario"><br>
+
+                    <label for="contrasena">Contraseña:</label>
+                    <input type="password" id="contrasena" name="contrasena"><br>
+
+
+
+                    <input type="submit" value="Registrarse">
+                </form>
 
             </div>
         </div>
@@ -132,13 +162,13 @@
             <h3 style="padding-left: 10%;">
                 Registros históricos
             </h3>
-            <div  style="
+            <div style="
             background-color: lightblue;
             border-radius: 15px;
             padding: 1%;
             border-style: solid;
             height: 83vh;">
-            LOREM IPSUM...
+                LOREM IPSUM...
             </div>
         </div>
         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
@@ -146,13 +176,13 @@
             <h3 style="padding-left: 10%;">
                 Lista Solicitudes
             </h3>
-            <div  style="
+            <div style="
             background-color: lightblue;
             border-radius: 15px;
             padding: 1%;
             border-style: solid;
             height: 83vh;">
-            whaterever tomorrow...
+                whaterever tomorrow...
             </div>
         </div>
     </div>
