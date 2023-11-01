@@ -11,3 +11,8 @@ def panel_inv_eb(request):
     data = Producto.objects.all()
     context = {"productos": data}
     return render(request, 'core/panel_inv_eb.html', context)
+
+def vista_jefe_dideco(request):
+    data = Producto.objects.all()
+    context = {"productos": data}
+    return render(request, 'core/vista_jefe_dideco.html', context)

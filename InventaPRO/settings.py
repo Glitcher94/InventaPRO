@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'localhost:1521/xe',
         'USER': 'INVENTA_PRO',
-        'PASSWORD': '1234',
+        'PASSWORD': '321',
     }
 }
 
