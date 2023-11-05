@@ -22,6 +22,6 @@ from Web_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="core/index"),
-    path('core/ panel_inv_eb', views.panel_inv_eb, name="core/panel_inv_eb"),
+    path('core/ vista_enc_bodega', views.vista_enc_bodega, name="core/vista_enc_bodega"),
     path('core/ vista_jefe_dideco', views.vista_jefe_dideco, name="core/vista_jefe_dideco")
 ]

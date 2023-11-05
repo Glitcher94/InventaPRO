@@ -1,0 +1,43 @@
+.fieldset {
+    background-color: white;
+    border-radius: 15px;
+    border-style: solid;
+    padding-bottom: 50px;
+    padding-top: 1px;
+    padding-left: 2%;
+    padding-right: 2%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Evita el desborde de contenido */
+}
+
+.table-container {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+    min-width: 15%;
+    padding: 8px;
+    border: 1px solid #000;
+    word-break: break-all; /* Evita que el texto desborde las celdas */
+}
+
+.scrollable-container {
+    max-height: 75%; /* Ajusta este valor según tus necesidades y preferencias */
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.scrollable-table {
+    max-height: 100%; /* Cambiamos la altura a auto */
+    border-style: solid ;
+    border-color: red;
+}
+

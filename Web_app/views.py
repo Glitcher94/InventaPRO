@@ -7,10 +7,10 @@ from .models import Producto
 def index(request):
     return render(request, 'core/index.html')
 
-def panel_inv_eb(request):
+def vista_enc_bodega(request):
     data = Producto.objects.all()
     context = {"productos": data}
-    return render(request, 'core/panel_inv_eb.html', context)
+    return render(request, 'core/vista_enc_bodega.html', context)
 
 def vista_jefe_dideco(request):
     data = Producto.objects.all()
