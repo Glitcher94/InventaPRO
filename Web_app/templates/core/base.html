@@ -10,7 +10,7 @@
     {% load static %}
     <title>{% block title %}Document{% endblock %}</title>
     <!--<link rel="stylesheet" type="text/css" href="CSS/form.css">-->
-    <link rel="stylesheet" type="text/css" href="{% static 'core/css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style1.css' %}">
     <script>
         function validarFormulario() {
             var nombres = document.getElementById("nombres").value;

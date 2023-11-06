@@ -2,19 +2,57 @@
     background-color: white;
     border-radius: 15px;
     border-style: solid;
+    height: 85vh;
     padding-bottom: 50px;
     padding-top: 1px;
     padding-left: 2%;
     padding-right: 2%;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow: hidden; /* Evita el desborde de contenido */
+    max-width: 100%; /* Evita que la tabla se desborde del contenedor al hacer zoom */ 
+}
+
+.fieldset>h4 {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    width: 250px;
+    height: 55px;
+    margin-top: -27px;
+    margin-left: 80px;
+    background: black;
+    color: white;
+    border-style: solid;
+    border-radius: 7px;
+    border-color: black;
+}
+
+.leftpanel {
+    width: 20%;
+    background-color: white;
+    padding: 1%;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.rightpanel {
+    background-color: white;
+    width: 80%;
+    padding: 2%;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-left-style: solid;
+}
+
+.tab-content {
+    height: 90vh;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border: solid;
 }
 
 .table-container {
     display: table;
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%; /* Aseguramos que la tabla se ajuste al contenedor */
+    border-collapse: collapse; /* Colapsamos los bordes de la tabla */
 }
 
 .table-row {
@@ -23,21 +61,13 @@
 
 .table-cell {
     display: table-cell;
-    min-width: 15%;
-    padding: 8px;
+    min-width: 150px;
+    padding: 5px;
     border: 1px solid #000;
-    word-break: break-all; /* Evita que el texto desborde las celdas */
 }
 
 .scrollable-container {
-    max-height: 75%; /* Ajusta este valor según tus necesidades y preferencias */
-    overflow-y: auto;
-    box-sizing: border-box;
+    max-height: 70vh;
+    overflow-y: auto; /* Agregamos un scroll vertical a este contenedor */
+    border: solid;
 }
-
-.scrollable-table {
-    max-height: 100%; /* Cambiamos la altura a auto */
-    border-style: solid ;
-    border-color: red;
-}
-
