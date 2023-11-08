@@ -19,6 +19,7 @@
     width: 20%;
     padding: 2%;
     height: 90vh;
+    background-color: #000;
 }
 
 
@@ -82,6 +83,8 @@
     width: 100%;
     /* Aseguramos que la tabla se ajuste al contenedor */
     border-collapse: collapse;
+    border: solid blue;
+    background-color: #0056b3;
     /* Colapsamos los bordes de la tabla */
 }
 
@@ -96,10 +99,186 @@
     border: 1px solid #000;
 }
 
-    .scrollable-container {
-        max-height: 70vh;
+.scrollable-container {
+    max-height: 70vh;
     overflow-y: auto;
     /* Agregamos un scroll vertical a este contenedor */
     border: solid;
     background-color: white;
+}
+
+@import url('//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese');
+
+.users-box {
+    display: flex;
+    justify-content: center;
+    padding: 0%
+}
+
+.user-form, .user-list {
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.user-list>h2 {
+    font-size: 18px;
+}
+
+.user-form>input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.user-form>button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-form>button:hover {
+    background-color: #0056b3;
+}
+
+.user-list>ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+}
+
+/* Añade esto al final de tu archivo CSS */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#confirmButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#confirmButton:hover {
+    background-color: #0056b3;
+}
+
+/* R_PRODUCTO*/
+
+
+.newprod-box {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.product-form {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    height: 50vh;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.product-form>form {
+    display: flex; 
+    justify-content: space-around;
+    flex-direction: column;
+} 
+
+.product-form>h2 {
+    font-size: 20px;
+    color: #007bff;
+}
+
+.product-form>label {
+    display: block;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.product-form>input, .product-form>select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.product-form>button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-form>button:hover {
+    background-color: #0056b3;
+}
+
+.product-list {
+    width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.product-list>h2 {
+    font-size: 20px;
+    color: #007bff;
+}
+
+.product-list>ul {
+    list-style: none;
+    padding: 0;
+}
+
+.product-list>li {
+    margin: 10px 0;
 }

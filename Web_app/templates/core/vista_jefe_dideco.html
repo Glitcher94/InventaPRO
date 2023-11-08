@@ -1,192 +1,129 @@
-{%extends 'core/base.html' %}
+{% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div style="
-    width: 20%;
-    background-color: lightskyblue;
-    padding: 1%;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;">
-    <h1>
-        InventaPRO
-    </h1>
-    <br>
-    <br>
-    <div class="nav flex-column nav-pills lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
-            type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
-        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-            type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Crear usuario</button>
-        <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
-            type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="true">Históricos</button>
-        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-            type="button" role="tab" aria-controls="v-pills-messages" aria-selected="true">Solicitudes
-            realizadas</button>
+<div class="mid-panel">
+    <div class="leftpanel">
+        <br>
+        <br>
+        <div class="nav flex-column nav-pills lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
+            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Crear usuario</button>
+            <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
+                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="true">Históricos</button>
+            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
+                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="true">Solicitudes
+                realizadas</button>
+        </div>
     </div>
-</div>
-<div style="
-        background-color: #96305A;
-        width: 80%;
-        padding: 2%;
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
-        border-left-style: solid;">
-    <div class="tab-content" id="v-pills-tabContent" style="height: 90vh;">
-        <div class=" tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"
-            tabindex="0">
-            <h3 style="padding-left: 10%;">
-                Listado de Productos
-            </h3>
-            <style>
-                .table-outer-container {
-                    background-color: lightblue;
-                    border-radius: 15px;
-                    padding: 2%;
-                    border-style: solid;
-                    height: 83vh;
-                    overflow: hidden;
-                    /* Evitamos el desbordamiento horizontal */
-                }
-
-                .table-container {
-                    display: table;
-                    width: 100%;
-                    /* Aseguramos que la tabla se ajuste al contenedor */
-                    border-collapse: collapse;
-                    /* Colapsamos los bordes de la tabla */
-                }
-
-                .table-row {
-                    display: table-row;
-                }
-
-                .table-cell {
-                    display: table-cell;
-                    min-width: 150px;
-                    padding: 5px;
-                    border: 1px solid #000;
-                }
-
-                .scrollable-container {
-                    max-height: 75vh;
-                    overflow-y: auto;
-                    /* Agregamos un scroll vertical a este contenedor */
-                    border-style: solid;
-                }
-            </style>
-
-            <div class="table-outer-container">
-                <div class="scrollable-container">
-                    <div class="table-container">
-                        <div class="table-row">
-                            <div class="table-cell">
-                                <h5><strong>ID Producto</strong></h5>
+    <div class="rightpanel">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class=" tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"
+                tabindex="0">
+                <div class="fieldset">
+                    <h4>Listado de Productos</h4>
+                    <div class="scrollable-container">
+                        <div class="table-container">
+                            <div class="scrollable-table"">
+                                <div class=" table-row">
+                                <div class="table-cell"><strong>ID Producto</strong></div>
+                                <div class="table-cell"><strong>Nombre Producto</strong></div>
+                                <div class="table-cell"><strong>Categoría</strong></div>
+                                <div class="table-cell"><strong>Cantidad</strong></div>
                             </div>
-                            <div class="table-cell">
-                                <h5><strong>Nombre Producto</strong></h5>
+                            {% for Producto in productos %}
+                            <div class="table-row">
+                                <div class="table-cell">{{ Producto.id_producto }}</div>
+                                <div class="table-cell">{{ Producto.nombre_producto }}</div>
+                                <div class="table-cell">{{ Producto.categoria }}</div>
+                                <div class="table-cell">{{ Producto.cantidad }}</div>
                             </div>
-                            <div class="table-cell">
-                                <h5><strong>Categoría</strong></h5>
-                            </div>
-                            <div class="table-cell">
-                                <h5><strong>Cantidad</strong></h5>
-                            </div>
+                            {% endfor %}
                         </div>
-                        {% for Producto in productos %}
-                        <div class="table-row">
-                            <div class="table-cell">
-                                {{ Producto.id_producto }}
-                            </div>
-                            <div class="table-cell">
-                                {{ Producto.nombre_producto }}
-                            </div>
-                            <div class="table-cell">
-                                {{ Producto.categoria }}
-                            </div>
-                            <div class="table-cell">
-                                {{ Producto.cantidad }}
-                            </div>
-                        </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
-
         </div>
-
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
             tabindex="0">
-            <h3 style="padding-left: 10%;">
-                Crear usuario
-            </h3>
-            <div style="
-                background-color: lightblue;
-                border-radius: 15px;
-                padding: 1%;
-                border-style: solid;
-                height: 83vh;">
-
-                <h2>Registro de Usuario</h2>
-                    <label for="nombres">Nombres:</label>
-                    <input type="text" id="nombres" name="nombres"><br>
-
-                    <label for="apellidos">Apellidos:</label>
-                    <input type="text" id="apellidos" name="apellidos"><br>
-
-                    <label for="rol">Rol:</label>
-                    <select id="rol" name="rol">
-                        <option value="">Seleccionar</option>
-                        <option value="Trabajadora Social">Trabajadora Social</option>
-                        <option value="DIDECO">DIDECO</option>
-                        <option value="Bodeguero">Bodeguero</option>
-
-                    </select><br>
-
-                    <label for="nombre-usuario">Nombre de Usuario:</label>
-                    <input type="text" id="nombre-usuario" name="nombre-usuario"><br>
-
-                    <label for="contrasena">Contraseña:</label>
-                    <input type="password" id="contrasena" name="contrasena"><br>
-
-
-
-                    <input type="submit" value="Registrarse">
-                </form>
-
+            <div>
+                <div class="fieldset">
+                    <h4>
+                        Crear usuario
+                    </h4>
+                    <div class="users-box">
+                        <div class="user-form">
+                            <input type="text" id="firstName" placeholder="Nombres">
+                            <input type="text" id="lastName" placeholder="Apellidos">
+                            <label for="rol">Rol:</label>
+                            <select id="rol" name="rol">
+                                <option value="">Seleccionar</option>
+                                <option value="Trabajadora Social">Trabajadora Social</option>
+                                <option value="DIDECO">DIDECO</option>
+                                <option value="Bodeguero">Bodeguero</option>
+                            </select><br>
+                            <label for="programa">Programa:</label>
+                            <select id="programa" name="programa">
+                                <option value="">Seleccionar</option>
+                                <option value="Trabajadora Social">Trabajadora Social</option>
+                                <option value="DIDECO">DIDECO</option>
+                                <option value="Bodeguero">Bodeguero</option>
+                            </select><br>
+                            <input type="text" id="email" placeholder="Correo electrónico">
+                            <input type="password" id="password" placeholder="Contraseña">
+                            <button onclick="addUser()">Registrar</button>
+                        </div>
+        
+                        <div class="user-list">
+                            <h2>Lista de Usuarios</h2>
+                            <ul id="userList"></ul>
+                        </div>
+        
+                        <div id="registrationMessage" style="display: none;">Registro exitoso</div>
+        
+                        <script src="{% static 'core\js\script.js' %}"></script>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
             tabindex="0">
-            <h3 style="padding-left: 10%;">
-                Registros históricos
-            </h3>
-            <div style="
-            background-color: lightblue;
-            border-radius: 15px;
-            padding: 1%;
-            border-style: solid;
-            height: 83vh;">
-                LOREM IPSUM...
+            <div>
+                <div class="fieldset">
+                    <h4>
+                        Registros Históricos
+                    </h4>
+                    <br>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit assumenda quibusdam, tenetur,
+                    architecto cupiditate minus
+                    illum veniam pariatur asperiores ut laudantium in a iusto doloribus? Earum similique esse doloremque
+                    veniam....
+                </div>
             </div>
         </div>
         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
             tabindex="0">
-            <h3 style="padding-left: 10%;">
-                Lista Solicitudes
-            </h3>
-            <div style="
-            background-color: lightblue;
-            border-radius: 15px;
-            padding: 1%;
-            border-style: solid;
-            height: 83vh;">
-                whaterever tomorrow...
+            <div>
+                <div class="fieldset">
+                    <h4>
+                        Lista Solicitudes
+                    </h4>
+                    <br>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quibusdam voluptas nostrum sunt
+                    dolor deleniti voluptatibus
+                    quidem excepturi officia ad ea, eius numquam in non eos cumque, officiis, odit natus.
+                </div>
             </div>
         </div>
     </div>
 
 </div>
+
+</div>
+
 
 {% endblock %}
