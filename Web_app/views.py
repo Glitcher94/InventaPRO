@@ -41,7 +41,7 @@ def vista_enc_bodega(request):
 
         print("Producto guardado en la base de datos")  # Mensaje de depuración
 
-        return redirect('core:vista_enc_bodega')
+        return redirect('core/vista_enc_bodega')
 
     return render(request, 'core/vista_enc_bodega.html', context)
 
