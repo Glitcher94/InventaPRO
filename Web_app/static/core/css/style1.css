@@ -2,7 +2,7 @@
     width: 100%;
     background-color: rgb(140, 20, 20);
     border: solid rgb(140, 20, 20);
-    height: 10vh;
+    height: 9vh;
 }
 
 .sup-panel>h1 {
@@ -12,14 +12,15 @@
 .mid-panel {
     display: flex;
     justify-content: center;
-    height: 90vh;
+    height: 91vh;  
+    background-position: center;
+    background-size: 100%;
 }
 
 .leftpanel {
     width: 20%;
     padding: 2%;
-    height: 90vh;
-    background-color: #000;
+    height: 91vh;
 }
 
 
@@ -38,11 +39,10 @@
 }
 
 .rightpanel {
-    background-color: white;
     width: 80%;
     padding-left: 2%;
     padding-right: 2%;
-    height: 90vh;
+    height: 91vh;
     padding-top: 0.3%;
 }
 
@@ -83,8 +83,6 @@
     width: 100%;
     /* Aseguramos que la tabla se ajuste al contenedor */
     border-collapse: collapse;
-    border: solid blue;
-    background-color: #0056b3;
     /* Colapsamos los bordes de la tabla */
 }
 
@@ -97,10 +95,11 @@
     min-width: 150px;
     padding: 5px;
     border: 1px solid #000;
+    font-size: x-small;
 }
 
 .scrollable-container {
-    max-height: 70vh;
+    max-height: 55vh;
     overflow-y: auto;
     /* Agregamos un scroll vertical a este contenedor */
     border: solid;
