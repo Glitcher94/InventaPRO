@@ -49,4 +49,24 @@ def vista_enc_bodega(request):
 def vista_jefe_dideco(request):
     data = Producto.objects.all()
     context = {"productos": data}
+
+    if request.method == 'POST':
+        print("Entré al bloque POST")  # Mensaje de depuración
+
+        nombre_producto = request.POST['productName']
+        categoria = request.POST['productCategory']
+        cantidad = request.POST.get('productAmount', 0)
+        unidad = request.POST['productUnitType']
+
+        print(f"Datos del formulario: {nombre_producto}, {categoria}, {cantidad}, {unidad}")  # Mensaje de depuración
+
+        producto = Producto(nombre_producto=nombre_producto, categoria=categoria, cantidad=cantidad, unidad=unidad)
+        producto.save()
+
+        messages.success(request, '¡Producto registrado con éxito!')
+
+        print("Producto guardado en la base de datos")  # Mensaje de depuración
+
+        return redirect('core/vista_enc_bodega')
+
     return render(request, 'core/vista_jefe_dideco.html', context)

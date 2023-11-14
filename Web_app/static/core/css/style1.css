@@ -111,11 +111,16 @@
 .users-box {
     display: flex;
     justify-content: center;
-    padding: 0%
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
+
 
 .user-form, .user-list {
     width: 300px;
+    height: 370px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;

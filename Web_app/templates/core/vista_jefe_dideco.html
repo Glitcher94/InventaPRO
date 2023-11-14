@@ -5,6 +5,11 @@
 
 {% block content %}
 <div class="mid-panel">
+    <style>
+        .mid-panel {
+            background-image: url("{% static 'core\img\1571858238238.jpg' %}");
+        }
+    </style>
     <div class="leftpanel">
         <br>
         <br>
@@ -12,12 +17,12 @@
             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
                 type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">Crear usuario</button>
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Crear Usuario</button>
             <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
-                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="true">Históricos</button>
+                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Históricos</button>
             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="true">Solicitudes
-                realizadas</button>
+                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Solicitudes
+                Aprobadas</button>
         </div>
     </div>
     <div class="rightpanel">
@@ -26,102 +31,117 @@
                 tabindex="0">
                 <div class="fieldset">
                     <h4>Listado de Productos</h4>
+                    <div class="filter-buttons">
+                        <a class="btn btn-light" href="?categoria=Material de Aseo" role="button">Filtrar por Material
+                            de Aseo</a>
+                        <a class="btn btn-light" href="?categoria=Material de oficina" role="button">Filtrar por
+                            Material de Oficina</a>
+                        <a class="btn btn-light" href="?estado=En stock" role="button">Filtrar por Disponibildad: "En
+                            Stock"</a>
+                        <a class="btn btn-light" href="?estado=Agotado" role="button">Filtrar por Disponibildad:
+                            "Agotado"</a>
+                    </div>
                     <div class="scrollable-container">
                         <div class="table-container">
-                            <div class="scrollable-table"">
+                            <div class="scrollable-table">
                                 <div class=" table-row">
-                                <div class="table-cell"><strong>ID Producto</strong></div>
-                                <div class="table-cell"><strong>Nombre Producto</strong></div>
-                                <div class="table-cell"><strong>Categoría</strong></div>
-                                <div class="table-cell"><strong>Cantidad</strong></div>
+                                    <div class="table-cell"><strong>ID Producto</strong></div>
+                                    <div class="table-cell"><strong>Nombre Producto</strong></div>
+                                    <div class="table-cell"><strong>Categoría</strong></div>
+                                    <div class="table-cell"><strong>Cantidad</strong></div>
+                                    <div class="table-cell"><strong>Unidad</strong></div>
+                                    <div class="table-cell"><strong>Estado</strong></div>
+                                </div>
+                                {% for Producto in productos %}
+                                <div class="table-row">
+                                    <div class="table-cell">{{ Producto.id_producto }}</div>
+                                    <div class="table-cell">{{ Producto.nombre_producto }}</div>
+                                    <div class="table-cell">{{ Producto.categoria }}</div>
+                                    <div class="table-cell">{{ Producto.cantidad }}</div>
+                                    <div class="table-cell">{{ Producto.unidad }}</div>
+                                    <div class="table-cell">{{ Producto.estado }}</div>
+                                </div>
+                                {% endfor %}
                             </div>
-                            {% for Producto in productos %}
-                            <div class="table-row">
-                                <div class="table-cell">{{ Producto.id_producto }}</div>
-                                <div class="table-cell">{{ Producto.nombre_producto }}</div>
-                                <div class="table-cell">{{ Producto.categoria }}</div>
-                                <div class="table-cell">{{ Producto.cantidad }}</div>
-                            </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
-            tabindex="0">
-            <div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+                tabindex="0">
                 <div class="fieldset">
                     <h4>
-                        Crear usuario
+                        Usuario nuevo
                     </h4>
                     <div class="users-box">
                         <div class="user-form">
-                            <input type="text" id="firstName" placeholder="Nombres">
-                            <input type="text" id="lastName" placeholder="Apellidos">
-                            <label for="rol">Rol:</label>
-                            <select id="rol" name="rol">
-                                <option value="">Seleccionar</option>
-                                <option value="Trabajadora Social">Trabajadora Social</option>
-                                <option value="DIDECO">DIDECO</option>
-                                <option value="Bodeguero">Bodeguero</option>
-                            </select><br>
-                            <label for="programa">Programa:</label>
-                            <select id="programa" name="programa">
-                                <option value="">Seleccionar</option>
-                                <option value="Trabajadora Social">Trabajadora Social</option>
-                                <option value="DIDECO">DIDECO</option>
-                                <option value="Bodeguero">Bodeguero</option>
-                            </select><br>
-                            <input type="text" id="email" placeholder="Correo electrónico">
-                            <input type="password" id="password" placeholder="Contraseña">
-                            <button onclick="addUser()">Registrar</button>
+                            <form action="" method="post">
+                                <input type="text" id="userName" placeholder="Nombre completo">
+                                <label for="userRol">Rol:</label>
+                                <select id="userRol" name="userRol">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Trabajadora Social">Trabajadora Social</option>
+                                    <option value="Jefe DIDECO">DIDECO</option>
+                                    <option value="Encargado Bodega">Bodeguero</option>
+                                    <option value="Encargado inventario social">Encargado inventario social</option>
+                                </select><br>
+                                <!--
+                                <label for="programa">Programa:</label>
+                                <select id="programa" name="programa">
+                                    <option value="">Seleccionar</option>
+                                    <option value="Trabajadora Social">Trabajadora Social</option>
+                                    <option value="DIDECO">DIDECO</option>
+                                    <option value="Bodeguero">Bodeguero</option>
+                                </select><br>
+                                -->
+                                <input type="text" id="userEmail" placeholder="Correo electrónico">
+                                <input type="password" id="password" placeholder="Contraseña">
+                                <button type="submit">Agregar Usuario</button>
+                                
+                            </form>
                         </div>
-        
                         <div class="user-list">
                             <h2>Lista de Usuarios</h2>
                             <ul id="userList"></ul>
                         </div>
-        
-                        <div id="registrationMessage" style="display: none;">Registro exitoso</div>
-        
-                        <script src="{% static 'core\js\script.js' %}"></script>
+      
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
+                tabindex="0">
+                <div>
+                    <div class="fieldset">
+                        <h4>
+                            Registros Históricos
+                        </h4>
+                        <br>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit assumenda quibusdam, tenetur,
+                        architecto cupiditate minus
+                        illum veniam pariatur asperiores ut laudantium in a iusto doloribus? Earum similique esse
+                        doloremque
+                        veniam....
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
+                tabindex="0">
+                <div>
+                    <div class="fieldset">
+                        <h4>
+                            Lista Solicitudes
+                        </h4>
+                        <br>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quibusdam voluptas nostrum sunt
+                        dolor deleniti voluptatibus
+                        quidem excepturi officia ad ea, eius numquam in non eos cumque, officiis, odit natus.
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
-            tabindex="0">
-            <div>
-                <div class="fieldset">
-                    <h4>
-                        Registros Históricos
-                    </h4>
-                    <br>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit assumenda quibusdam, tenetur,
-                    architecto cupiditate minus
-                    illum veniam pariatur asperiores ut laudantium in a iusto doloribus? Earum similique esse doloremque
-                    veniam....
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
-            tabindex="0">
-            <div>
-                <div class="fieldset">
-                    <h4>
-                        Lista Solicitudes
-                    </h4>
-                    <br>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quibusdam voluptas nostrum sunt
-                    dolor deleniti voluptatibus
-                    quidem excepturi officia ad ea, eius numquam in non eos cumque, officiis, odit natus.
-                </div>
-            </div>
-        </div>
-    </div>
 
-</div>
+    </div>
 
 </div>
 

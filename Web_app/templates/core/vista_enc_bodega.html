@@ -8,7 +8,7 @@
     <style>
         .mid-panel {
             background-image: url("{% static 'core\img\spring-strawberries.jpeg' %}");
-        }         
+        }
     </style>
     <div class="leftpanel">
         <br>
@@ -33,108 +33,114 @@
                 <div class="fieldset">
                     <h4>Listado de Productos</h4>
                     <div class="filter-buttons">
-                        <a class="btn btn-light" href="?categoria=Material de Aseo" role="button">Filtrar por Material de Aseo</a>
-                        <a class="btn btn-light" href="?categoria=Material de oficina" role="button">Filtrar por Material de Oficina</a>
-                        <a class="btn btn-light" href="?estado=En stock" role="button">Filtrar por Disponibildad: "En Stock"</a>
-                        <a class="btn btn-light" href="?estado=Agotado" role="button">Filtrar por Disponibildad: "Agotado"</a>
-                    </div>                  
+                        <a class="btn btn-light" href="?categoria=Material de Aseo" role="button">Filtrar por Material
+                            de Aseo</a>
+                        <a class="btn btn-light" href="?categoria=Material de oficina" role="button">Filtrar por
+                            Material de Oficina</a>
+                        <a class="btn btn-light" href="?estado=En stock" role="button">Filtrar por Disponibildad: "En
+                            Stock"</a>
+                        <a class="btn btn-light" href="?estado=Agotado" role="button">Filtrar por Disponibildad:
+                            "Agotado"</a>
+                    </div>
                     <div class="scrollable-container">
                         <div class="table-container">
                             <div class="scrollable-table">
                                 <div class=" table-row">
-                                <div class="table-cell"><strong>ID Producto</strong></div>
-                                <div class="table-cell"><strong>Nombre Producto</strong></div>
-                                <div class="table-cell"><strong>Categoría</strong></div>
-                                <div class="table-cell"><strong>Cantidad</strong></div>
-                                <div class="table-cell"><strong>Unidad</strong></div>
-                                <div class="table-cell"><strong>Estado</strong></div>
+                                    <div class="table-cell"><strong>ID Producto</strong></div>
+                                    <div class="table-cell"><strong>Nombre Producto</strong></div>
+                                    <div class="table-cell"><strong>Categoría</strong></div>
+                                    <div class="table-cell"><strong>Cantidad</strong></div>
+                                    <div class="table-cell"><strong>Unidad</strong></div>
+                                    <div class="table-cell"><strong>Estado</strong></div>
+                                </div>
+                                {% for Producto in productos %}
+                                <div class="table-row">
+                                    <div class="table-cell">{{ Producto.id_producto }}</div>
+                                    <div class="table-cell">{{ Producto.nombre_producto }}</div>
+                                    <div class="table-cell">{{ Producto.categoria }}</div>
+                                    <div class="table-cell">{{ Producto.cantidad }}</div>
+                                    <div class="table-cell">{{ Producto.unidad }}</div>
+                                    <div class="table-cell">{{ Producto.estado }}</div>
+                                </div>
+                                {% endfor %}
                             </div>
-                            {% for Producto in productos %}
-                            <div class="table-row">
-                                <div class="table-cell">{{ Producto.id_producto }}</div>
-                                <div class="table-cell">{{ Producto.nombre_producto }}</div>
-                                <div class="table-cell">{{ Producto.categoria }}</div>
-                                <div class="table-cell">{{ Producto.cantidad }}</div>
-                                <div class="table-cell">{{ Producto.unidad }}</div>
-                                <div class="table-cell">{{ Producto.estado }}</div>
-                            </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
-            tabindex="0">
-            <div class="fieldset">
-                <h4>
-                    Producto nuevo
-                </h4>
-                <div class="newprod-box">
-                    <div class="product-form">
-                        <form id="productForm" action="" method="post">
-                            {% csrf_token %}
-                            <label for="productName">Nombre del Producto: </label>
-                            <input type="text" id="productName" name="productName" required>
-                            <label for="productCategory">Categoría:</label>
-                            <select id="productCategory" name="productCategory" required>
-                                {% for categoria in categorias %}
-                                <option value="{{ categoria }}">{{ categoria }}</option>
-                                {% endfor %}
-                            </select>
-                            <label for="productAmount">Cantidad: </label>
-                            <input min="0" max="2000" type="number" id="productAmount" name="productAmount" required/>
-                            <label for="productUnitType">Unidad: </label>
-                            <input type="text" id="productUnitType" name="productUnitType" required>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+                tabindex="0">
+                <div class="fieldset">
+                    <h4>
+                        Producto nuevo
+                    </h4>
+                    <div class="newprod-box">
+                        <div class="product-form">
+                            <form id="productForm" action="" method="post">
+                                {% csrf_token %}
+                                <label for="productName">Nombre del Producto: </label>
+                                <input type="text" id="productName" name="productName" required>
+                                <label for="productCategory">Categoría:</label>
+                                <select id="productCategory" name="productCategory" required>
+                                    {% for categoria in categorias %}
+                                    <option value="{{ categoria }}">{{ categoria }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="productAmount">Cantidad: </label>
+                                <input min="0" max="2000" type="number" id="productAmount" name="productAmount"
+                                    required />
+                                <label for="productUnitType">Unidad: </label>
+                                <input type="text" id="productUnitType" name="productUnitType" required>
 
-                            <button type="submit">Registrar Producto</button>
-                        </form>
-                    </div>
+                                <button type="submit">Registrar Producto</button>
+                            </form>
+                        </div>
 
-                    <!-- Lista de Productos Registrados                         
+                        <!-- Lista de Productos Registrados                         
                     <div class="product-list">
                         <h2>Lista de Productos Registrados</h2>
                         <ul id="productList"></ul>
                     </div>
                     -->
 
-                    <!--<script src="{% static 'core\js\script1.js' %}"></script>-->
-                </div>
+                        <!--<script src="{% static 'core\js\script1.js' %}"></script>-->
+                    </div>
 
+                </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
-            tabindex="0">
-            <div>
-                <div class="fieldset">
-                    <h4>
-                        Registros Históricos
-                    </h4>
-                    <br>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit assumenda quibusdam, tenetur,
-                    architecto cupiditate minus
-                    illum veniam pariatur asperiores ut laudantium in a iusto doloribus? Earum similique esse doloremque
-                    veniam....
+            <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
+                tabindex="0">
+                <div>
+                    <div class="fieldset">
+                        <h4>
+                            Registros Históricos
+                        </h4>
+                        <br>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit assumenda quibusdam, tenetur,
+                        architecto cupiditate minus
+                        illum veniam pariatur asperiores ut laudantium in a iusto doloribus? Earum similique esse
+                        doloremque
+                        veniam....
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
+                tabindex="0">
+                <div>
+                    <div class="fieldset">
+                        <h4>
+                            Lista Solicitudes
+                        </h4>
+                        <br>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quibusdam voluptas nostrum sunt
+                        dolor deleniti voluptatibus
+                        quidem excepturi officia ad ea, eius numquam in non eos cumque, officiis, odit natus.
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
-            tabindex="0">
-            <div>
-                <div class="fieldset">
-                    <h4>
-                        Lista Solicitudes
-                    </h4>
-                    <br>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quibusdam voluptas nostrum sunt
-                    dolor deleniti voluptatibus
-                    quidem excepturi officia ad ea, eius numquam in non eos cumque, officiis, odit natus.
-                </div>
-            </div>
-        </div>
+
     </div>
-
-</div>
 
 </div>
 
