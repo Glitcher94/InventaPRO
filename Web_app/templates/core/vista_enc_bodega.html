@@ -37,6 +37,9 @@
                             de Aseo</a>
                         <a class="btn btn-light" href="?categoria=Material de oficina" role="button">Filtrar por
                             Material de Oficina</a>
+                        <a class="btn btn-light" href="?categoria=Ayuda social" role="button">Filtrar por
+                            Ayuda social</a>
+                        <br>
                         <a class="btn btn-light" href="?estado=En stock" role="button">Filtrar por Disponibildad: "En
                             Stock"</a>
                         <a class="btn btn-light" href="?estado=Agotado" role="button">Filtrar por Disponibildad:
@@ -51,6 +54,7 @@
                                     <div class="table-cell"><strong>Categoría</strong></div>
                                     <div class="table-cell"><strong>Cantidad</strong></div>
                                     <div class="table-cell"><strong>Unidad</strong></div>
+                                    <div class="table-cell"><strong>Orden de Compra</strong></div>
                                     <div class="table-cell"><strong>Estado</strong></div>
                                 </div>
                                 {% for Producto in productos %}
@@ -60,6 +64,7 @@
                                     <div class="table-cell">{{ Producto.categoria }}</div>
                                     <div class="table-cell">{{ Producto.cantidad }}</div>
                                     <div class="table-cell">{{ Producto.unidad }}</div>
+                                    <div class="table-cell">{{ Producto.orden_compra }}</div>
                                     <div class="table-cell">{{ Producto.estado }}</div>
                                 </div>
                                 {% endfor %}
@@ -91,9 +96,37 @@
                                     required />
                                 <label for="productUnitType">Unidad: </label>
                                 <input type="text" id="productUnitType" name="productUnitType" required>
+                                <label for="productBuyOrder">Orden de compra: </label>
+                                <input type="text" id="productBuyOrder" name="productBuyOrder" required>
 
                                 <button type="submit">Registrar Producto</button>
                             </form>
+                        </div>
+                        <div class="product-preview">
+                            <h3>Vista Previa del Producto</h3>
+                            <table id="previewTable">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <td id="previewName"></td>
+                                </tr>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <td id="previewCategory"></td>
+                                </tr>
+                                <tr>
+                                    <th>Cantidad</th>
+                                    <td id="previewAmount"></td>
+                                </tr>
+                                <tr>
+                                    <th>Unidad</th>
+                                    <td id="previewUnitType"></td>
+                                </tr>
+                                <tr>
+                                    <th>Orden de compra</th>
+                                    <td id="previewBuyOrder"></td>
+                                </tr>
+                                <!-- Agrega más filas para otros detalles del producto -->
+                            </table>
                         </div>
 
                         <!-- Lista de Productos Registrados                         
@@ -143,6 +176,8 @@
     </div>
 
 </div>
+
+<script src="{% static 'core\js\script.js' %}"></script>
 
 
 {% endblock %}

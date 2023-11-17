@@ -1,28 +1,39 @@
-function addUser() {
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const rol = document.getElementById("rol").value;
-    const programa = document.getElementById("programa").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+document.addEventListener("DOMContentLoaded", function() {
+    const productNameInput = document.getElementById("productName");
+    const previewName = document.getElementById("previewName");
 
-    // Aquí puedes realizar la lógica para guardar los datos en una base de datos o hacer lo que necesites.
+    const productCategoryInput = document.getElementById("productCategory");
+    const previewCategory = document.getElementById("previewCategory");
 
-    // Agregar el registro a la lista de usuarios.
-    const userList = document.getElementById("userList");
-    const listItem = document.createElement("li");
-    listItem.textContent = `Nombres: ${firstName}, Apellidos: ${lastName},rol: ${rol}, programa: ${programa}, Correo: ${email}`;
-    userList.appendChild(listItem);
+    const productAmountInput = document.getElementById("productAmount");
+    const previewAmount = document.getElementById("previewAmount");
 
-    // Muestra el mensaje de registro exitoso.
-    const registrationMessage = document.getElementById("registrationMessage");
-    registrationMessage.style.display = "block";
+    
+    const productUnitTypeInput = document.getElementById("productUnitType");
+    const previewUnitType = document.getElementById("previewUnitType");
 
-    // Limpia los campos del formulario.
-    document.getElementById("firstName").value = "";
-    document.getElementById("lastName").value = "";
-    document.getElementById("rol").value = "";
-    document.getElementById("programa").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-}
+    const productBuyOrderInput = document.getElementById("productBuyOrder");
+    const previewBuyOrder = document.getElementById("previewBuyOrder");
+
+    productNameInput.addEventListener("input", function() {
+        previewName.textContent = productNameInput.value;
+    });
+
+    productCategoryInput.addEventListener("input", function() {
+        previewCategory.textContent = productCategoryInput.value;
+    });
+
+    productAmountInput.addEventListener("input", function() {
+        previewAmount.textContent = productAmountInput.value;
+    });
+
+    productUnitTypeInput.addEventListener("input", function() {
+        previewUnitType.textContent = productUnitTypeInput.value;
+    });
+
+    productBuyOrderInput.addEventListener("input", function() {
+        previewBuyOrder.textContent = productBuyOrderInput.value;
+    });
+});
+
+// Resto del código para el envío del formulario y manejo de datos

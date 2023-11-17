@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import Producto
+from .models import Producto, Usuario
 
 # Create your views here.
 
@@ -31,10 +31,13 @@ def vista_enc_bodega(request):
         categoria = request.POST['productCategory']
         cantidad = request.POST.get('productAmount', 0)
         unidad = request.POST['productUnitType']
+        orden_compra = request.POST['productBuyOrder']
 
-        print(f"Datos del formulario: {nombre_producto}, {categoria}, {cantidad}, {unidad}")  # Mensaje de depuración
+        # Mensaje de depuración
+        print(f"Datos del formulario: {nombre_producto}, {categoria}, {cantidad}, {unidad}, {orden_compra}")
 
-        producto = Producto(nombre_producto=nombre_producto, categoria=categoria, cantidad=cantidad, unidad=unidad)
+        producto = Producto(nombre_producto=nombre_producto, categoria=categoria, cantidad=cantidad, unidad=unidad,
+                             orden_compra=orden_compra)
         producto.save()
 
         messages.success(request, '¡Producto registrado con éxito!')
@@ -53,20 +56,21 @@ def vista_jefe_dideco(request):
     if request.method == 'POST':
         print("Entré al bloque POST")  # Mensaje de depuración
 
-        nombre_producto = request.POST['productName']
-        categoria = request.POST['productCategory']
-        cantidad = request.POST.get('productAmount', 0)
-        unidad = request.POST['productUnitType']
+        nombre_usuario = request.POST['userName']
+        rol = request.POST['userRol']
+        correo = request.POST['userEmail']
+        clave = request.POST['userPin']
 
-        print(f"Datos del formulario: {nombre_producto}, {categoria}, {cantidad}, {unidad}")  # Mensaje de depuración
+        print(f"Datos del formulario: {nombre_usuario}, {rol}, {correo}, {clave}")  # Mensaje de depuración
 
-        producto = Producto(nombre_producto=nombre_producto, categoria=categoria, cantidad=cantidad, unidad=unidad)
-        producto.save()
+        usuario = Usuario(nombre_usuario=nombre_usuario, rol=rol, correo=correo,clave=clave)
+        usuario.save()
 
-        messages.success(request, '¡Producto registrado con éxito!')
+        messages.success(request, '¡Usuario registrado con éxito!')
 
-        print("Producto guardado en la base de datos")  # Mensaje de depuración
+        print("Usuario guardado en la base de datos")  # Mensaje de depuración
 
-        return redirect('core/vista_enc_bodega')
+        return redirect('core/vista_jefe_dideco')
+
 
     return render(request, 'core/vista_jefe_dideco.html', context)

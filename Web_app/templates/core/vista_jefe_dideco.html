@@ -76,7 +76,9 @@
                     <div class="users-box">
                         <div class="user-form">
                             <form action="" method="post">
-                                <input type="text" id="userName" placeholder="Nombre completo">
+                                {% csrf_token %}
+                                <input type="text" id="userName" name= "userName" placeholder="Nombre completo">
+                                <br>
                                 <label for="userRol">Rol:</label>
                                 <select id="userRol" name="userRol">
                                     <option value="">Seleccionar</option>
@@ -94,8 +96,8 @@
                                     <option value="Bodeguero">Bodeguero</option>
                                 </select><br>
                                 -->
-                                <input type="text" id="userEmail" placeholder="Correo electrónico">
-                                <input type="password" id="password" placeholder="Contraseña">
+                                <input type="text" id="userEmail" name="userEmail" placeholder="Correo electrónico">
+                                <input type="password" id="userPin" name="userPin" placeholder="Contraseña">
                                 <button type="submit">Agregar Usuario</button>
                                 
                             </form>

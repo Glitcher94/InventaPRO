@@ -79,12 +79,28 @@ WSGI_APPLICATION = 'InventaPRO.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.oracle',
+#        'NAME': 'localhost:1521/xe',
+#        'USER': 'INVENTA_PRO',
+#        'PASSWORD': '321',
+#    }
+#}
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'localhost:1521/xe',
-        'USER': 'INVENTA_PRO',
-        'PASSWORD': '321',
+    'default':{
+        'ENGINE':'mssql',
+        'NAME':'INVENTA_PRO',
+        'USER':'',                     # Keep it blank
+        'PASSWORD':'',                 # Keep it blank
+        'HOST':'FSAEZ-PC\\SQLEXPRESS', # "localhost" is also possible
+        # 'PORT':'',                   # Can be removed
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
 
