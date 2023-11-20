@@ -52,7 +52,7 @@
                                     <div class="table-cell"><strong>Unidad</strong></div>
                                     <div class="table-cell"><strong>Estado</strong></div>
                                 </div>
-                                {% for Producto in productos %}
+                                {% for Producto in inventario %}
                                 <div class="table-row">
                                     <div class="table-cell">{{ Producto.id_producto }}</div>
                                     <div class="table-cell">{{ Producto.nombre_producto }}</div>
@@ -85,7 +85,8 @@
                                     <option value="Trabajadora Social">Trabajadora Social</option>
                                     <option value="Jefe DIDECO">DIDECO</option>
                                     <option value="Encargado Bodega">Bodeguero</option>
-                                    <option value="Encargado inventario social">Encargado inventario social</option>
+                                    <option value="Encargada inventario social">Encargada inventario social</option>
+                                    <option value="Administrador">Administrador</option>
                                 </select><br>
                                 <!--
                                 <label for="programa">Programa:</label>

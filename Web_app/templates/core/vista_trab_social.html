@@ -7,7 +7,7 @@
 <div class="mid-panel">
     <style>
         .mid-panel {
-            background-image: url("{% static 'core\img\spring-strawberries.jpeg' %}");
+            background-image: url("{% static 'core\img\adobestock-294179798-edited-scaled.jpeg' %}");
         }
     </style>
     <div class="leftpanel">
@@ -17,13 +17,9 @@
             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
                 type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Registrar
-                Producto</button>
-            <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
-                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Históricos</button>
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Realizar solicitud</button>
             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Solicitudes
-                Aprobadas</button>
+                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Lista solicitudes</button>
         </div>
     </div>
     <div class="rightpanel">
@@ -77,9 +73,55 @@
                 tabindex="0">
                 <div class="fieldset">
                     <h4>
-                        Producto nuevo
+                        Nueva Solicitud
                     </h4>
-                    <div class="newprod-box">
+                    <div class="newPetition-box">
+                        <div class="solicitud-form">
+                            <div class="request">
+                                <form id="solicitudForm" action="" method="post">
+                                    {% csrf_token %}
+                                    <label for="fecha">Fecha:</label>
+                                    <input type="date" id="fecha" name="fecha" required>          
+                                    <label for="ordenCompra">Orden de Compra:</label>
+                                    <input type="text" id="ordenCompra" name="ordenCompra" required>
+                                    <br>
+                                    <label for="programa">Programa:</label>
+                                    <select type="text" id="programa" name="programa" required>
+                                        <option value="Familias">Familias</option>
+                                        <option value="Cultura">Cultura</option>
+                                        <option value="Deporte">Deporte</option>
+                                        <option value="Mujeres Jefas de Hogar">Mujeres Jefas de Hogar</option>
+                                        <option value="Equidad de género">Equidad de género</option>
+                                        <option value="Discapacidad">Discapacidad </option>
+                                        <option value="Adulto mayor">Adulto mayor</option>
+                                        <option value="Chile crece contigo">Chile crece contigo</option>
+                                        <option value="Senda">Senda</option>
+                                        <option value="Omil">Omil</option>
+                                        <option value="Perlac">Perlac</option>
+                                    </select>
+
+                                    <br>
+                                    <label for="productName">Producto:</label>
+                                    <select id="productName" name="productName" required>
+                                        {% for nombre_producto in productos %}
+                                        <option value="{{ nombre_producto }}">{{ nombre_producto}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="cantidad">Cantidad:</label>
+                                    <input type="number" id="cantidad" name="cantidad" required>
+                                    <br>
+                                    <button type="submit">Enviar Solicitud</button>
+                                </form>
+                            </div>
+                            <div class="analisys">
+                                <h5>
+                                    Análisis solicitud
+                                </h5>
+
+                            </div>
+
+                        </div>
+                        <!--
                         <div class="product-form">
                             <form id="productForm" action="" method="post">
                                 {% csrf_token %}
@@ -125,9 +167,9 @@
                                     <th>Orden de compra</th>
                                     <td id="previewBuyOrder"></td>
                                 </tr>
-                                <!-- Agrega más filas para otros detalles del producto -->
                             </table>
                         </div>
+                    -->
 
                         <!-- Lista de Productos Registrados                         
                     <div class="product-list">

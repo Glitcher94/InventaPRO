@@ -9,7 +9,7 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
         rel="stylesheet">
-    <title>Iniciar Sesión</title>
+    <title>Acceso Administrador</title>
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/estilo.css' %}">
 
 </head>
@@ -30,49 +30,18 @@
                 background-image: url("{% static 'core\img\UHLOPCFDJBFT3EN3N5RQQD4FHA.webp' %}");
             }
         </style>
-        <header class="logo">
-            <img src="{% static 'core\img\loogo.jpg' %}" alt="">
-        </header>
-        <br>
-        <div class="contenedor">
-            <div class="formulario">
-                <form method="post" action="">
-                    {% csrf_token %}
-                    <h2>INICIAR SESIÓN</h2>
-
-                    <div class="input-contenedor">
-                        <div class="email">
-                            <input type="email" name="email" placeholder="Correo electrónico" required="">
-                            <span class="icon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="input-contenedor">
-                        <div class="password">
-                            <input type="password" name="password" placeholder="Contraseña" required="">
-                            <span class="icon3"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <button type="submit">Acceder</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </section>
-
-    <br>
     <div class="test_button" style="
         display: flex;
         justify-content: center;">
         <a class="btn btn-primary btn-lg" href="{% url 'core/vista_enc_bodega' %}" role="button">
-            Ir a Panel Inventario
+            Ir a Vista Bodeguero / Encargada inventario Social
         </a>
         <br>
         <a class="btn btn-primary btn-lg" href="{% url 'core/vista_jefe_dideco' %}" role="button">
             Ir a Vista Jefe DIDECO
+        </a>
+        <a class="btn btn-primary btn-lg" href="{% url 'core/vista_trab_social' %}" role="button">
+            Ir a Vista Trabajadora Social
         </a>
     </div>
 
