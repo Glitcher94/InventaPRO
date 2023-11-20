@@ -105,7 +105,11 @@
                         </div>
                         <div class="user-list">
                             <h2>Lista de Usuarios</h2>
-                            <ul id="userList"></ul>
+                            <ul id="userList">
+                                {% for usuario in usuarios %}
+                                <li>{{ usuario.nombre_usuario }} - {{ usuario.correo }}</li>
+                            {% endfor %}
+                            </ul>
                         </div>
       
                     </div>

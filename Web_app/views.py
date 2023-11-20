@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from .models import Producto, Usuario
+from .models import Producto, Usuario, Solicitud
 
 
 
@@ -96,7 +96,10 @@ def vista_jefe_dideco(request):
         data = data.filter(estado=estado)
 
     selec_categorias = Producto.objects.values_list('categoria', flat=True).distinct()
-    context = {"inventario": data, "categorias": selec_categorias}
+
+    usuarios = Usuario.objects.all()  # Obtener todos los usuarios
+
+    context = {"inventario": data, "categorias": selec_categorias, 'usuarios': usuarios}
 
     if request.method == 'POST':
         print("Entré al bloque POST")  # Mensaje de depuración
@@ -140,6 +143,42 @@ def vista_trab_social(request):
     selec_categorias = Producto.objects.values_list('categoria', flat=True).distinct()
     selec_productos = Producto.objects.values_list('nombre_producto', flat=True).distinct()
     context = {"inventario": data, "categorias": selec_categorias, "productos": selec_productos }
+
+    if request.method == 'POST':
+        fecha = request.POST['fecha']
+        orden_compra = request.POST['ordenCompra']
+        programa = request.POST['programa']
+        tipo_solicitud = request.POST['tipo_solicitud']
+        producto = request.POST['productName']
+        cantidad = request.POST['cantidad']
+
+
+        nueva_solicitud = Solicitud(
+            fecha_solicitud=fecha,
+            tipo_solicitud=tipo_solicitud,
+            estado_solicitud='Pendiente', 
+            beneficiario='Nombre del beneficiario', 
+            programa=programa
+        )
+        nueva_solicitud.save()
+
+
+        producto_encontrado = obtener_producto_por_nombre(producto)
+
+        if producto_encontrado:
+            nuevo_movimiento = MovimientosInventario(
+                id_producto=producto_encontrado.id_producto,
+                cantidad=cantidad,
+                tipo_movimiento='egreso',  # Tipo de movimiento 'egreso'
+                id_usuario=request.user,  # Si tienes el usuario actual
+                id_solicitud=nueva_solicitud,
+                fecha_movimiento=datetime.now()  # Fecha actual
+            )
+            nuevo_movimiento.save()
+
+        messages.success(request, '¡Solicitud enviada con éxito!')
+
+        return redirect('core/vista:trab_social')  # Reemplaza 'ruta_a_tu_vista' por tu URL
 
     return render(request, 'core/vista_trab_social.html', context)
 

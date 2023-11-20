@@ -162,6 +162,7 @@ class Solicitud(models.Model):
     tipo_solicitud = models.CharField(max_length=20, blank=True, null=True)
     estado_solicitud = models.CharField(max_length=20, blank=True, null=True)
     beneficiario = models.CharField(max_length=30, blank=True, null=True)
+    programa = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         db_table = 'solicitud'
