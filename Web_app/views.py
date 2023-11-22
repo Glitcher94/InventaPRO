@@ -47,37 +47,37 @@ def vista_enc_bodega(request):
         data = data.filter(estado=estado)
 
     selec_categorias = Producto.objects.values_list('categoria', flat=True).distinct()
-    context = {"inventario": data, "categorias": selec_categorias}
 
     if request.method == 'POST':
-        print("Entré al bloque POST")  # Mensaje de depuración
-
-        nombre_producto = request.POST['productName']
-        categoria = request.POST['productCategory']
+        nombre_producto = request.POST.get('productName', 0)
+        categoria = request.POST.get('productCategory', 0)
         cantidad = request.POST.get('productAmount', 0)
-        unidad = request.POST['productUnitType']
-        orden_compra = request.POST['productBuyOrder']
+        unidad = request.POST.get('productUnitType', 0)
+        orden_compra = request.POST.get('productBuyOrder', 0)
 
-        # Mensaje de depuración
-        print(f"Datos del formulario: {nombre_producto}, {categoria}, {cantidad}, {unidad}, {orden_compra}")
+        cantidad_entero = int(cantidad)
 
-        producto = Producto(nombre_producto=nombre_producto, categoria=categoria, cantidad=cantidad, unidad=unidad,
-                             orden_compra=orden_compra)
-        
-        if cantidad > 0:
-            producto.estado = 'En stock'
-        elif cantidad is None:
-            producto.estado = 'Desconocido'
+        if cantidad_entero > 0:
+            estado_producto = 'En stock'
+        elif cantidad_entero == 0:
+            estado_producto = 'Agotado'
         else:
-            producto.estado = 'Agotado'
+            estado_producto = 'Desconocido'
 
-        producto.save()
+        producto = Producto.objects.create(
+            nombre_producto=nombre_producto,
+            categoria=categoria,
+            cantidad=cantidad,
+            unidad=unidad,
+            orden_compra=orden_compra,
+            estado=estado_producto
+        )
 
         messages.success(request, '¡Producto registrado con éxito!')
 
-        print("Producto guardado en la base de datos")  # Mensaje de depuración
-
         return redirect('core/vista_enc_bodega')
+    
+    context = {"inventario": data, "categorias": selec_categorias}
 
     return render(request, 'core/vista_enc_bodega.html', context)
 
