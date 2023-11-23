@@ -60,9 +60,17 @@
                                 {% for Producto in inventario %}
                                 <div class="table-row">
                                     <div class="table-cell">{{ Producto.id_producto }}</div>
-                                    <div class="table-cell">{{ Producto.nombre_producto }}</div>
+                                    <div class="table-cell">
+                                        <span id="productName_{{ Producto.id_producto }}">{{ Producto.nombre_producto }}</span>
+                                        <input type="text" id="newName_{{ Producto.id_producto }}" placeholder="Nuevo Nombre" style="display: none;">
+                                        <button onclick="toggleEditName('{{ Producto.id_producto }}')">Editar</button>
+                                    </div>
                                     <div class="table-cell">{{ Producto.categoria }}</div>
-                                    <div class="table-cell">{{ Producto.cantidad }}</div>
+                                    <div class="table-cell">
+                                        <span id="productQuantity_{{ Producto.id_producto }}">{{ Producto.cantidad }}</span>
+                                        <input type="number" id="newQuantity_{{ Producto.id_producto }}" min="0" value="1">
+                                        <button onclick="updateQuantity('{{ Producto.id_producto }}')">Editar</button>
+                                    </div>
                                     <div class="table-cell">{{ Producto.unidad }}</div>
                                     <div class="table-cell">{{ Producto.orden_compra }}</div>
                                     <div class="table-cell">{{ Producto.estado }}</div>
@@ -178,6 +186,7 @@
 </div>
 
 <script src="{% static 'core\js\script.js' %}"></script>
+<script src="{% static 'core\js\script1.js' %}"></script>
 
 
 {% endblock %}

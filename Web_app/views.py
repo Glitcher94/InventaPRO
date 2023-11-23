@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.contrib import messages
-from .models import Producto, Usuario, Solicitud
+from .models import Producto, Usuario, Solicitud, MovimientosInventario
+from django.db import transaction
+
 
 
 
@@ -32,7 +35,7 @@ def index(request):
 
     return render(request, 'core/index.html')
 
-
+@transaction.atomic
 def vista_enc_bodega(request):
     data = Producto.objects.all()  # Obtén todos los productos
 
@@ -49,37 +52,58 @@ def vista_enc_bodega(request):
     selec_categorias = Producto.objects.values_list('categoria', flat=True).distinct()
 
     if request.method == 'POST':
-        nombre_producto = request.POST.get('productName', 0)
-        categoria = request.POST.get('productCategory', 0)
-        cantidad = request.POST.get('productAmount', 0)
-        unidad = request.POST.get('productUnitType', 0)
-        orden_compra = request.POST.get('productBuyOrder', 0)
+        try:
+            with transaction.atomic():
+                nombre_producto = request.POST.get('productName')
+                categoria = request.POST.get('productCategory')
+                cantidad = request.POST.get('productAmount')
+                unidad = request.POST.get('productUnitType')
+                orden_compra = request.POST.get('productBuyOrder')
 
-        cantidad_entero = int(cantidad)
+                print(f"Datos del formulario: {nombre_producto}, {categoria}, {cantidad}, {unidad}, {orden_compra}")
 
-        if cantidad_entero > 0:
-            estado_producto = 'En stock'
-        elif cantidad_entero == 0:
-            estado_producto = 'Agotado'
-        else:
-            estado_producto = 'Desconocido'
+                cantidad_entero = int(cantidad) if cantidad else 0
 
-        producto = Producto.objects.create(
-            nombre_producto=nombre_producto,
-            categoria=categoria,
-            cantidad=cantidad,
-            unidad=unidad,
-            orden_compra=orden_compra,
-            estado=estado_producto
-        )
+                estado_producto = 'Desconocido'
+                if cantidad_entero > 0:
+                    estado_producto = 'En stock'
+                elif cantidad_entero == 0:
+                    estado_producto = 'Agotado'
 
-        messages.success(request, '¡Producto registrado con éxito!')
+                producto = Producto(
+                    nombre_producto=nombre_producto,
+                    categoria=categoria,
+                    cantidad=cantidad_entero,
+                    unidad=unidad,
+                    orden_compra=orden_compra,
+                    estado=estado_producto
+                )
+                producto.save()
 
-        return redirect('core/vista_enc_bodega')
+                messages.success(request, '¡Producto registrado con éxito!')
+
+                return redirect('core/vista_enc_bodega')
+
+        except Exception as e:
+            print(f"Error al guardar el producto: {e}")
+            messages.error(request, 'Error al guardar el producto. Consulta los registros para más detalles.')
+            return redirect('core/vista_enc_bodega')
     
     context = {"inventario": data, "categorias": selec_categorias}
 
     return render(request, 'core/vista_enc_bodega.html', context)
+
+def update_quantity(request, product_id, new_quantity):
+    producto = Producto.objects.get(id_producto=product_id)
+    producto.cantidad = new_quantity
+    producto.save()
+    return JsonResponse({'new_quantity': producto.cantidad})
+
+def update_name(request, product_id, new_name):
+    producto = Producto.objects.get(id_producto=product_id)
+    producto.nombre_producto = new_name
+    producto.save()
+    return JsonResponse({'new_name': producto.nombre_producto})
 
 
 def vista_jefe_dideco(request):
@@ -144,6 +168,7 @@ def vista_trab_social(request):
     selec_productos = Producto.objects.values_list('nombre_producto', flat=True).distinct()
     context = {"inventario": data, "categorias": selec_categorias, "productos": selec_productos }
 
+    """
     if request.method == 'POST':
         fecha = request.POST['fecha']
         orden_compra = request.POST['ordenCompra']
@@ -178,7 +203,8 @@ def vista_trab_social(request):
 
         messages.success(request, '¡Solicitud enviada con éxito!')
 
-        return redirect('core/vista:trab_social')  # Reemplaza 'ruta_a_tu_vista' por tu URL
+        return redirect('core/vista_trab_social')  # Reemplaza 'ruta_a_tu_vista' por tu URL
+        """
 
     return render(request, 'core/vista_trab_social.html', context)
 

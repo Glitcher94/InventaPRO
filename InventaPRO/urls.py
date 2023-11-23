@@ -24,6 +24,6 @@ urlpatterns = [
     path('', views.index, name="core/index"),
     path('core/ vista_enc_bodega', views.vista_enc_bodega, name="core/vista_enc_bodega"),
     path('core/ vista_jefe_dideco', views.vista_jefe_dideco, name="core/vista_jefe_dideco"),
-    path('core/ vista_trab_social', views.vista_trab_social, name="core/vista_trab_social"),
+    path('core/vista_trab_social', views.vista_trab_social, name="core/vista_trab_social"),
     path('core/acceso_admin', views.acceso_admin, name="core/acceso_admin")
 ]
