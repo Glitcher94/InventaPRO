@@ -4,6 +4,10 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .models import Producto, Usuario, Solicitud, MovimientosInventario
 from django.db import transaction
+from datetime import datetime
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user
+
 
 
 
@@ -106,6 +110,9 @@ def update_name(request, product_id, new_name):
     return JsonResponse({'new_name': producto.nombre_producto})
 
 
+
+
+
 def vista_jefe_dideco(request):
     data = Producto.objects.all()  # Obtén todos los productos
 
@@ -151,6 +158,8 @@ def vista_jefe_dideco(request):
 
 
 
+
+
 def vista_trab_social(request):
     data = Producto.objects.all()  # Obtén todos los productos
 
@@ -168,7 +177,6 @@ def vista_trab_social(request):
     selec_productos = Producto.objects.values_list('nombre_producto', flat=True).distinct()
     context = {"inventario": data, "categorias": selec_categorias, "productos": selec_productos }
 
-    """
     if request.method == 'POST':
         fecha = request.POST['fecha']
         orden_compra = request.POST['ordenCompra']
@@ -187,15 +195,29 @@ def vista_trab_social(request):
         )
         nueva_solicitud.save()
 
+        def generar_id_movimiento():
+            fecha_actual = datetime.now()
+            t_stamp = int(fecha_actual.timestamp()) * 1000
+            # Utiliza un contador autoincrementable para los últimos 3 dígitos
+            if not hasattr(generar_id_movimiento, "contador"):
+                generar_id_movimiento.contador = 0
+            generar_id_movimiento.contador += 1
+            id_movimiento = f"{t_stamp}{generar_id_movimiento.contador:03d}"  # Asegura 3 dígitos
+        
+            return id_movimiento
 
-        producto_encontrado = obtener_producto_por_nombre(producto)
+        if producto:
+            # Buscar el objeto Producto por su nombre
+            producto_obj = get_object_or_404(Producto, nombre_producto=producto)
+            id_movimiento = generar_id_movimiento()
+            usuario_aut = get_user(request)
 
-        if producto_encontrado:
             nuevo_movimiento = MovimientosInventario(
-                id_producto=producto_encontrado.id_producto,
+                id_movimiento=id_movimiento,
+                id_producto=producto_obj,
                 cantidad=cantidad,
                 tipo_movimiento='egreso',  # Tipo de movimiento 'egreso'
-                id_usuario=request.user,  # Si tienes el usuario actual
+                id_usuario=usuario_aut,  # Si tienes el usuario actual
                 id_solicitud=nueva_solicitud,
                 fecha_movimiento=datetime.now()  # Fecha actual
             )
@@ -203,8 +225,8 @@ def vista_trab_social(request):
 
         messages.success(request, '¡Solicitud enviada con éxito!')
 
-        return redirect('core/vista_trab_social')  # Reemplaza 'ruta_a_tu_vista' por tu URL
-        """
+        return redirect('core/vista_trab_social')
+
 
     return render(request, 'core/vista_trab_social.html', context)
 

@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150, blank=True, null=True)
 
@@ -130,7 +131,7 @@ class DjangoSession(models.Model):
 
 
 class MovimientosInventario(models.Model):
-    id_movimiento = models.FloatField(primary_key=True)
+    id_movimiento = models.BigIntegerField(primary_key=True)
     id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='id_producto', blank=True, null=True)
     cantidad = models.FloatField(blank=True, null=True)
     tipo_movimiento = models.CharField(max_length=50, blank=True, null=True)
@@ -159,7 +160,7 @@ class Producto(models.Model):
 
 
 class Solicitud(models.Model):
-    id_solicitud = models.BigIntegerField(primary_key=True)
+    id_solicitud = models.CharField(max_length=10, primary_key=True)
     fecha_solicitud = models.DateField(blank=True, null=True)
     tipo_solicitud = models.CharField(max_length=20, blank=True, null=True)
     estado_solicitud = models.CharField(max_length=20, blank=True, null=True)
