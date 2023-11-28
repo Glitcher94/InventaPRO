@@ -6,7 +6,7 @@ from .models import Producto, Usuario, Solicitud, MovimientosInventario
 from django.db import transaction
 from datetime import datetime
 from django.shortcuts import get_object_or_404
-from django.contrib.auth import get_user
+from django.contrib.auth import get_user_model
 
 
 
@@ -185,6 +185,7 @@ def vista_trab_social(request):
         producto = request.POST['productName']
         cantidad = request.POST['cantidad']
 
+        User = get_user_model()
 
         nueva_solicitud = Solicitud(
             fecha_solicitud=fecha,
@@ -210,7 +211,7 @@ def vista_trab_social(request):
             # Buscar el objeto Producto por su nombre
             producto_obj = get_object_or_404(Producto, nombre_producto=producto)
             id_movimiento = generar_id_movimiento()
-            usuario_aut = get_user(request)
+            usuario_aut = User.objects.get(pk=request.user.pk)
 
             nuevo_movimiento = MovimientosInventario(
                 id_movimiento=id_movimiento,
