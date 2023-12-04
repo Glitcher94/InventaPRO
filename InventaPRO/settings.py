@@ -126,6 +126,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'Web_app.Usuario'  # Reemplaza 'nombre_app' con el nombre de tu aplicación y 'Usuario' con el nombre de tu modelo de usuario personalizado
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'Web_app.auth_backends.AuthByEmailBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

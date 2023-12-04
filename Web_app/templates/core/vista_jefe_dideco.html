@@ -22,7 +22,7 @@
                 type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Históricos</button>
             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
                 type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Solicitudes
-                Aprobadas</button>
+            </button>
         </div>
     </div>
     <div class="rightpanel">
@@ -42,8 +42,8 @@
                             "Agotado"</a>
                     </div>
                     <div class="scrollable-container">
-                        <div class="table-container">
-                            <div class="scrollable-table">
+                        <div class="product-table">
+                            <div class="p-scrollable-table">
                                 <div class=" table-row">
                                     <div class="table-cell"><strong>ID Producto</strong></div>
                                     <div class="table-cell"><strong>Nombre Producto</strong></div>
@@ -77,9 +77,13 @@
                         <div class="user-form">
                             <form action="" method="post">
                                 {% csrf_token %}
+                                <label for="userName">Nombre de usuario: </label>
+                                <br>
                                 <input type="text" id="userName" name= "userName" placeholder="Nombre completo">
                                 <br>
-                                <label for="userRol">Rol:</label>
+                                <br>
+                                <label for="userRol">Rol: </label>
+                                <br>
                                 <select id="userRol" name="userRol">
                                     <option value="">Seleccionar</option>
                                     <option value="Trabajadora Social">Trabajadora Social</option>
@@ -88,6 +92,7 @@
                                     <option value="Encargada inventario social">Encargada inventario social</option>
                                     <option value="Administrador">Administrador</option>
                                 </select><br>
+                                <br>
                                 <!--
                                 <label for="programa">Programa:</label>
                                 <select id="programa" name="programa">
@@ -97,17 +102,33 @@
                                     <option value="Bodeguero">Bodeguero</option>
                                 </select><br>
                                 -->
+                                <label for="userEmail">E-mail: </label>
+                                <br>
                                 <input type="text" id="userEmail" name="userEmail" placeholder="Correo electrónico">
+                                <br>
+                                <br>
+                                <label for="userPin">Clave (5 dígitos): </label>
+                                <br>
                                 <input type="password" id="userPin" name="userPin" placeholder="Contraseña">
+                                <br>
+                                <br>
                                 <button type="submit">Agregar Usuario</button>
                                 
                             </form>
                         </div>
                         <div class="user-list">
-                            <h2>Lista de Usuarios</h2>
+                            <h2>LISTA DE USUARIOS</h2>
                             <ul id="userList">
                                 {% for usuario in usuarios %}
-                                <li>{{ usuario.nombre_usuario }} - {{ usuario.correo }}</li>
+                                <li style="font-size: smaller; text-align: left;">
+                                    <span>- {{ usuario.nombre_usuario }} </span>
+                                    <br> 
+                                    <span style="margin-left: 0.7em;">{{ usuario.correo }}</span>
+                                    <br>
+                                    <span style="margin-left: 0.7em;">Rol = {{ usuario.rol }}</span>
+                                    <br>
+                                    <span>__________________________</span>
+                                </li>
                             {% endfor %}
                             </ul>
                         </div>
@@ -139,10 +160,39 @@
                         <h4>
                             Lista Solicitudes
                         </h4>
-                        <br>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quibusdam voluptas nostrum sunt
-                        dolor deleniti voluptatibus
-                        quidem excepturi officia ad ea, eius numquam in non eos cumque, officiis, odit natus.
+                        <div class="scrollable-container">
+                            <div class="request-table">
+                                <div class="r-scrollable-table" style="width: 100%;">
+                                    <div class=" table-row">
+                                        <div class="table-cell"><strong>ID Solicitud</strong></div>
+                                        <div class="table-cell"><strong>Fecha</strong></div>
+                                        <div class="table-cell"><strong>Estado</strong></div>
+                                        <div class="table-cell"><strong>Tipo</strong></div>
+                                        <div class="table-cell"><strong>Beneficiario</strong></div>
+                                        <div class="table-cell"><strong>Programa</strong></div>
+                                    </div>
+                                    {% for Solicitud in solicitudes %}
+                                    <div class="table-row">
+                                        <div class="table-cell">{{ Solicitud.id_solicitud }}</div>
+                                        <div class="table-cell">{{ Solicitud.fecha_solicitud }}</div>
+                                        <div class="table-cell">{{ Solicitud.estado_solicitud }}</div>
+                                        <div class="table-cell">{{ Solicitud.tipo_solicitud }}</div>
+                                        <div class="table-cell">{{ Solicitud.beneficiario    }}</div>
+                                        <div class="table-cell">{{ Solicitud.programa }}</div>
+                                        {% if Solicitud.estado_solicitud == "Pendiente" %}
+                                        <div class="table-cell">
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id_solicitud" value="{{ Solicitud.id_solicitud }}">
+                                                <input type="submit" value="Aprobar">
+                                            </form>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

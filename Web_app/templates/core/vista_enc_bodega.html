@@ -46,8 +46,8 @@
                             "Agotado"</a>
                     </div>
                     <div class="scrollable-container">
-                        <div class="table-container">
-                            <div class="scrollable-table">
+                        <div class="product-table">
+                            <div class="p-scrollable-table">
                                 <div class=" table-row">
                                     <div class="table-cell"><strong>ID Producto</strong></div>
                                     <div class="table-cell"><strong>Nombre Producto</strong></div>
@@ -177,9 +177,41 @@
                             Lista Solicitudes
                         </h4>
                         <br>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quibusdam voluptas nostrum sunt
-                        dolor deleniti voluptatibus
-                        quidem excepturi officia ad ea, eius numquam in non eos cumque, officiis, odit natus.
+                        <div class="scrollable-container">
+                            <div class="request-table">
+                                <div class="r-scrollable-table" style="width: 100%;">
+                                    <div class=" table-row">
+                                        <div class="table-cell"><strong>ID Solicitud</strong></div>
+                                        <div class="table-cell"><strong>Fecha</strong></div>
+                                        <div class="table-cell"><strong>Estado</strong></div>
+                                        <div class="table-cell"><strong>Tipo</strong></div>
+                                        <div class="table-cell"><strong>Beneficiario</strong></div>
+                                        <div class="table-cell"><strong>Programa</strong></div>
+                                    </div>
+                                    {% for Solicitud in solicitudes %}
+                                        {% if Solicitud.estado_solicitud != "Pendiente" %}
+                                            <div class="table-row">
+                                                <div class="table-cell">{{ Solicitud.id_solicitud }}</div>
+                                                <div class="table-cell">{{ Solicitud.fecha_solicitud }}</div>
+                                                <div class="table-cell">{{ Solicitud.estado_solicitud }}</div>
+                                                <div class="table-cell">{{ Solicitud.tipo_solicitud }}</div>
+                                                <div class="table-cell">{{ Solicitud.beneficiario    }}</div>
+                                                <div class="table-cell">{{ Solicitud.programa }}</div>
+                                                {% if Solicitud.estado_solicitud == "Aprobado" %}
+                                                <div class="table-cell">
+                                                    <form action="" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id_solicitud" value="{{ Solicitud.id_solicitud }}">
+                                                        <input type="submit" value="Entregar pedido">
+                                                    </form>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

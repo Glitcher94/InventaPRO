@@ -1,60 +1,60 @@
 <!DOCTYPE html>
 <html lang="es" style="height: 100hv;">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" 
-    rel="stylesheet">
-    {% load static %}
-    <title>{% block title %}Document{% endblock %}</title>
-    <!--<link rel="stylesheet" type="text/css" href="CSS/form.css">-->
-    <link rel="stylesheet" href="{% static 'core/css/style1.css' %}">
-    <script>
-        function validarFormulario() {
-            var nombres = document.getElementById("nombres").value;
-            var apellidos = document.getElementById("apellidos").value;
-            var rol = document.getElementById("rol").value;
-            var nombreUsuario = document.getElementById("nombre-usuario").value;
-            var contrasena = document.getElementById("contrasena").value;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" 
+        rel="stylesheet">
+        {% load static %}
+        <title>{% block title %}Document{% endblock %}</title>
+        <!--<link rel="stylesheet" type="text/css" href="CSS/form.css">-->
+        <link rel="stylesheet" href="{% static 'core\css\style1.css' %}">
+        <script>
+            function validarFormulario() {
+                var nombres = document.getElementById("nombres").value;
+                var apellidos = document.getElementById("apellidos").value;
+                var rol = document.getElementById("rol").value;
+                var nombreUsuario = document.getElementById("nombre-usuario").value;
+                var contrasena = document.getElementById("contrasena").value;
 
 
-            if (nombres === "" || apellidos === "" || rol === "" || contrasena === "" || nombreUsuario === "") {
-                alert("Todos los campos son obligatorios. Por favor, llénelos.");
-                return false;
+                if (nombres === "" || apellidos === "" || rol === "" || contrasena === "" || nombreUsuario === "") {
+                    alert("Todos los campos son obligatorios. Por favor, llénelos.");
+                    return false;
+                }
+
+                if (contrasena.length < 8) {
+                    alert("La contraseña debe tener al menos 8 caracteres.");
+                    return false;
+                }
             }
-
-            if (contrasena.length < 8) {
-                alert("La contraseña debe tener al menos 8 caracteres.");
-                return false;
-            }
-        }
-    </script>
-</head>
-
-<body>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-        </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-        </script>
+    </head>
 
-    <div class="sup-panel">
-        <h1>
-            InventaPRO
-        </h1>   
-    </div>
-    {% block content %}
+    <body>
 
-    {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+            </script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+            </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+            </script>
 
-</body>
+        <div class="sup-panel">
+            <h1>
+                InventaPRO
+            </h1>   
+        </div>
+        {% block content %}
+
+        {% endblock %}
+
+    </body>
 
 </html>

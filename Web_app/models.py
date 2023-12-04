@@ -113,7 +113,6 @@ class Sysdiagrams(models.Model):
         db_table = 'sysdiagrams'
         unique_together = (('principal_id', 'name'),)
 
-
 class UsuarioManager(BaseUserManager):
     def create_user(self, nombre_usuario, correo, clave, rol):
         # Validaciones y lógica de creación de usuario
@@ -131,7 +130,7 @@ class UsuarioManager(BaseUserManager):
 class Usuario(models.Model):
     id_usuario = models.FloatField(primary_key=True)
     nombre_usuario = models.CharField(max_length=255)
-    correo = models.EmailField(unique=True, max_length=30)
+    correo = models.EmailField(unique=True, max_length=100)
     clave = models.CharField(max_length=255)
     rol = models.CharField(max_length=50)
 
@@ -140,6 +139,10 @@ class Usuario(models.Model):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'correo'  # Campo que se usa para el login
+
+    def check_password(self, password):
+        # Implementa tu lógica para verificar la contraseña aquí
+        return self.clave == password  # Compara la contraseña almacenada con la proporcionada
 
     def __str__(self):
         return self.nombre_usuario

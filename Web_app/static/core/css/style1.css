@@ -78,34 +78,83 @@
     border-color: black;
 }
 
+.product-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table .table-row {
+    display: table-row;
+}
+
+.product-table .table-cell {
+    display: table-cell;
+    padding: 5px;
+    border: 1px solid #000;
+    font-size: x-small;
+    width: 16.67%; /* Esto divide el ancho total en 6 columnas, cada una ocupará 16.67% */
+    box-sizing: border-box; /* Considera el borde y el relleno en el ancho total */
+}
+
+.request-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.request-table .table-row {
+    display: table-row;
+    width: 100%;
+
+}
+
+.request-table .table-cell {
+    display: table-cell;
+    padding: 5px;
+    border: 1px solid #000;
+    font-size: x-small;
+    min-width: 100px; /* Ancho mínimo de cada celda */
+    width: auto; /* Anchura automática basada en el contenido */
+    word-wrap: break-word; /* Permite que el texto se rompa y ajuste al ancho */
+    box-sizing: border-box; /* Considera el borde y el relleno en el ancho total */
+}
+
+.scrollable-container {
+    max-height: 55vh;
+    overflow-y: auto;
+    border: solid;
+    background-color: white;
+}
+
+/*
 .table-container {
     display: table;
     width: 100%;
-    /* Aseguramos que la tabla se ajuste al contenedor */
     border-collapse: collapse;
-    /* Colapsamos los bordes de la tabla */
 }
 
 .table-row {
     display: table-row;
 }
 
-
 .table-cell {
     display: table-cell;
-    min-width: 100px;
     padding: 5px;
     border: 1px solid #000;
     font-size: x-small;
-}
+    width: 16.67%;*/ /* Esto divide el ancho total en 6 columnas, cada una ocupará 16.67% */
+    /*box-sizing: border-box;*/ /* Considera el borde y el relleno en el ancho total */
+/*}
 
 .scrollable-container {
     max-height: 55vh;
     overflow-y: auto;
-    /* Agregamos un scroll vertical a este contenedor */
     border: solid;
     background-color: white;
 }
+*/
+
 
 
 @import url('//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese');
@@ -228,6 +277,7 @@ li {
     margin: 20px auto;
     padding: 20px;
     border-radius: 5px;
+    border: solid black ;
 }
 
 .product-form>form {
@@ -245,6 +295,8 @@ li {
     display: block;
     margin: 10px 0;
     text-align: left;
+    color: white;
+    border: solid black;
 }
 
 .product-form>input, .product-form>select {
