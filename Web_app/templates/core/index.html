@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+    <link
+        href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
         rel="stylesheet">
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/estilo.css' %}">
@@ -17,22 +18,30 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-        </script>
+    </script>
+
     <section>
         <style>
-            section{
+            section {
                 background-image: url("{% static 'core\img\UHLOPCFDJBFT3EN3N5RQQD4FHA.webp' %}");
             }
         </style>
         <header class="logo">
+            <h2>
+                Sistema de inventario
+            </h2>
+            <h1>
+                InventaPRO
+            </h1>
             <img src="{% static 'core\img\loogo.jpg' %}" alt="">
         </header>
+
         <br>
         <div class="contenedor">
             <div class="formulario">
@@ -42,6 +51,7 @@
 
                     <div class="input-contenedor">
                         <div class="email">
+                            Usuario
                             <input type="email" name="email" placeholder="Correo electrónico" required="">
                             <span class="icon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
                         </div>
@@ -49,31 +59,23 @@
 
                     <div class="input-contenedor">
                         <div class="password">
+                            Pin
                             <input type="password" name="password" placeholder="Contraseña" required="">
                             <span class="icon3"><i class="fa fa-lock" aria-hidden="true"></i></span>
                         </div>
                     </div>
-                    
+
                     <div>
                         <button type="submit">Acceder</button>
                     </div>
                 </form>
-
             </div>
+
+        </div>
+        <div class="creditos">
+            @ Desarrollado como Proyecto de Portafolio final, por Sharline Saavedra & Francisco Sáez
         </div>
     </section>
 
-    <br>
-    <div class="test_button" style="
-        display: flex;
-        justify-content: center;">
-        <a class="btn btn-primary btn-lg" href="{% url 'core/vista_enc_bodega' %}" role="button">
-            Ir a Panel Inventario
-        </a>
-        <br>
-        <a class="btn btn-primary btn-lg" href="{% url 'core/vista_jefe_dideco' %}" role="button">
-            Ir a Vista Jefe DIDECO
-        </a>
-    </div>
 
 </body>

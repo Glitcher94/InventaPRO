@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Web_app.context_processors.logged_user_processor',
             ],
         },
     },
@@ -102,8 +103,22 @@ DATABASES = {
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
+    },
+
+    'secondary':{
+        'ENGINE':'mssql',
+        'NAME':'IVP_CREDENCIALES',
+        'USER':'',                     # Keep it blank
+        'PASSWORD':'',                 # Keep it blank
+        'HOST':'FSAEZ-PC\\SQLEXPRESS', # "localhost" is also possible
+        # 'PORT':'',                   # Can be removed
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
+
+DATABASE_ROUTERS = ['Web_app.routers.SecondaryDatabaseRouter']
 
 
 # Password validation

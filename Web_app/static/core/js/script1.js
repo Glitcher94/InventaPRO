@@ -89,3 +89,13 @@ function updateName(product_id, newName) {
         console.error('Error:', error);
     });
 }
+
+//Volver blancos los logos al ser seleccionados
+
+function toggleButton(button) {
+    var activeButtons = document.getElementsByClassName('nav-link active');
+    for (var i = 0; i < activeButtons.length; i++) {
+        activeButtons[i].classList.remove('active');
+    }
+    button.classList.add('active');
+}

@@ -15,14 +15,34 @@
         <br>
         <div class="nav flex-column nav-pills lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
-                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
-            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Crear Usuario</button>
-            <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
-                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Históricos</button>
-            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Solicitudes
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"
+                onclick="toggleButton(this)">Stock Actual
+                <br>
+                <img src="{% static 'core\img\Warehouse.png' %}" alt="" class="button-image">
             </button>
+
+            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"
+                onclick="toggleButton(this)">Crear Usuario
+                <br>
+                <img src="{% static 'core\img\Add Male User Group.png' %}" alt="" class="button-image">
+            </button>
+
+            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
+                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"
+                onclick="toggleButton(this)">Solicitudes
+                <br>
+                <img src="{% static 'core\img\Drag List Down.png' %}" alt="" class="button-image">
+            </button>
+
+            <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
+                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false"
+                onclick="toggleButton(this)">Históricos
+                <br>
+                <img src="{% static 'core\img\Date Span.png' %}" alt="" class="button-image">
+            </button>
+
+
         </div>
     </div>
     <div class="rightpanel">
@@ -31,15 +51,20 @@
                 tabindex="0">
                 <div class="fieldset">
                     <h4>Listado de Productos</h4>
-                    <div class="filter-buttons">
-                        <a class="btn btn-light" href="?categoria=Material de Aseo" role="button">Filtrar por Material
-                            de Aseo</a>
-                        <a class="btn btn-light" href="?categoria=Material de oficina" role="button">Filtrar por
-                            Material de Oficina</a>
-                        <a class="btn btn-light" href="?estado=En stock" role="button">Filtrar por Disponibildad: "En
-                            Stock"</a>
-                        <a class="btn btn-light" href="?estado=Agotado" role="button">Filtrar por Disponibildad:
-                            "Agotado"</a>
+                    <div class="filter-buttons"> Filtros:
+                        <br>
+                        <select onchange="location = this.value;">
+                            <option value="">Filtrar por categoría</option>
+                            <option value="?categoria=Material de Aseo">Material de Aseo</option>
+                            <option value="?categoria=Material de oficina">Material de Oficina</option>
+                            <option value="?categoria=Ayuda social">Ayuda social</option>
+                        </select>
+                        <select onchange="location = this.value;">
+                            <option value="">Filtrar por Disponibilidad de producto</option>
+                            <option value="?estado=En stock">En Stock</option>
+                            <option value="?estado=Agotado">Agotado</option>
+                        </select>
+                        <a href="?limpiar_filtros=True" class="btn btn-danger btn-sm">Limpiar filtros</a>
                     </div>
                     <div class="scrollable-container">
                         <div class="product-table">
@@ -79,7 +104,7 @@
                                 {% csrf_token %}
                                 <label for="userName">Nombre de usuario: </label>
                                 <br>
-                                <input type="text" id="userName" name= "userName" placeholder="Nombre completo">
+                                <input type="text" id="userName" name="userName" placeholder="Nombre completo">
                                 <br>
                                 <br>
                                 <label for="userRol">Rol: </label>
@@ -113,7 +138,7 @@
                                 <br>
                                 <br>
                                 <button type="submit">Agregar Usuario</button>
-                                
+
                             </form>
                         </div>
                         <div class="user-list">
@@ -122,35 +147,19 @@
                                 {% for usuario in usuarios %}
                                 <li style="font-size: smaller; text-align: left;">
                                     <span>- {{ usuario.nombre_usuario }} </span>
-                                    <br> 
+                                    <br>
                                     <span style="margin-left: 0.7em;">{{ usuario.correo }}</span>
                                     <br>
                                     <span style="margin-left: 0.7em;">Rol = {{ usuario.rol }}</span>
                                     <br>
                                     <span>__________________________</span>
                                 </li>
-                            {% endfor %}
+                                {% endfor %}
                             </ul>
                         </div>
-      
+
                     </div>
 
-                </div>
-            </div>
-            <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
-                tabindex="0">
-                <div>
-                    <div class="fieldset">
-                        <h4>
-                            Registros Históricos
-                        </h4>
-                        <br>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit assumenda quibusdam, tenetur,
-                        architecto cupiditate minus
-                        illum veniam pariatur asperiores ut laudantium in a iusto doloribus? Earum similique esse
-                        doloremque
-                        veniam....
-                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"
@@ -177,13 +186,14 @@
                                         <div class="table-cell">{{ Solicitud.fecha_solicitud }}</div>
                                         <div class="table-cell">{{ Solicitud.estado_solicitud }}</div>
                                         <div class="table-cell">{{ Solicitud.tipo_solicitud }}</div>
-                                        <div class="table-cell">{{ Solicitud.beneficiario    }}</div>
+                                        <div class="table-cell">{{ Solicitud.beneficiario }}</div>
                                         <div class="table-cell">{{ Solicitud.programa }}</div>
                                         {% if Solicitud.estado_solicitud == "Pendiente" %}
                                         <div class="table-cell">
                                             <form action="" method="post">
                                                 {% csrf_token %}
-                                                <input type="hidden" name="id_solicitud" value="{{ Solicitud.id_solicitud }}">
+                                                <input type="hidden" name="id_solicitud"
+                                                    value="{{ Solicitud.id_solicitud }}">
                                                 <input type="submit" value="Aprobar">
                                             </form>
                                         </div>
@@ -193,6 +203,22 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
+                tabindex="0">
+                <div>
+                    <div class="fieldset">
+                        <h4>
+                            Registros Históricos
+                        </h4>
+                        <br>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit assumenda quibusdam, tenetur,
+                        architecto cupiditate minus
+                        illum veniam pariatur asperiores ut laudantium in a iusto doloribus? Earum similique esse
+                        doloremque
+                        veniam....
                     </div>
                 </div>
             </div>

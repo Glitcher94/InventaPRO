@@ -15,11 +15,23 @@
         <br>
         <div class="nav flex-column nav-pills lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
-                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" onclick="toggleButton(this)">
+                Stock Actual
+                <br>
+                <img src="{% static 'core\img\Warehouse.png' %}" alt="" class="button-image">
+            </button>
             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Realizar solicitud</button>
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="toggleButton(this)">
+                Realizar solicitud
+                <br>
+                <img src="{% static 'core\img\Add List.png' %}" alt="" class="button-image">
+            </button>
             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Lista solicitudes</button>
+                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="toggleButton(this)">
+                Lista solicitudes
+                <br>
+                <img src="{% static 'core\img\Drag List Down.png' %}" alt="" class="button-image">
+            </button>
         </div>
     </div>
     <div class="rightpanel">
@@ -28,18 +40,20 @@
                 tabindex="0">
                 <div class="fieldset">
                     <h4>Listado de Productos</h4>
-                    <div class="filter-buttons">
-                        <a class="btn btn-light" href="?categoria=Material de Aseo" role="button">Filtrar por Material
-                            de Aseo</a>
-                        <a class="btn btn-light" href="?categoria=Material de oficina" role="button">Filtrar por
-                            Material de Oficina</a>
-                        <a class="btn btn-light" href="?categoria=Ayuda social" role="button">Filtrar por
-                            Ayuda social</a>
+                    <div class="filter-buttons"> Filtros:
                         <br>
-                        <a class="btn btn-light" href="?estado=En stock" role="button">Filtrar por Disponibildad: "En
-                            Stock"</a>
-                        <a class="btn btn-light" href="?estado=Agotado" role="button">Filtrar por Disponibildad:
-                            "Agotado"</a>
+                        <select onchange="location = this.value;">
+                            <option value="">Filtrar por categoría</option>
+                            <option value="?categoria=Material de Aseo">Material de Aseo</option>
+                            <option value="?categoria=Material de oficina">Material de Oficina</option>
+                            <option value="?categoria=Ayuda social">Ayuda social</option>
+                        </select>
+                        <select onchange="location = this.value;">
+                            <option value="">Filtrar por Disponibilidad de producto</option>
+                            <option value="?estado=En stock">En Stock</option>
+                            <option value="?estado=Agotado">Agotado</option>
+                        </select>
+                        <a href="?limpiar_filtros=True" class="btn btn-danger btn-sm">Limpiar filtros</a>
                     </div>
                     <div class="scrollable-container">
                         <div class="product-table">
@@ -94,7 +108,7 @@
                                         <option value="Equidad de género">Equidad de género</option>
                                         <option value="Discapacidad">Discapacidad </option>
                                         <option value="Adulto mayor">Adulto mayor</option>
-                                        <option value="Chile crece contigo">Chile crece contigo</option>
+                                        <option value="Chile crece contigo">Chile crece contigo</option>
                                         <option value="Senda">Senda</option>
                                         <option value="Omil">Omil</option>
                                         <option value="Perlac">Perlac</option>
@@ -104,30 +118,61 @@
                                         <option value="Interna">Interna (aseo, oficina, uso interno municipalidad)</option>
                                         <option value="Externa">Externa (ayuda social, uso ciudadanía)</option>
                                     </select>
-
+                                    <br>
+                                    <label for="beneficiario">Beneficiario:</label>
+                                    <input type="text" id="beneficiario" name="beneficiario" placeholder="Nombre beneficiario">
                                     <br>
                                     <label for="productName">Producto:</label>
-                                    <select id="productName" name="productName" required>
+                                    <select id="productName" name="productName[]" required>
                                         {% for nombre_producto in productos %}
                                         <option value="{{ nombre_producto }}">{{ nombre_producto}}</option>
                                         {% endfor %}
                                     </select>
                                     <label for="cantidad">Cantidad:</label>
-                                    <input type="number" id="cantidad" name="cantidad" required>
+                                    <input type="number" id="cantidad" name="cantidad[]" required>
                                     <br>
-                                    <label for="beneficiario">Beneficiario:</label>
-                                    <input type="text" id="beneficiario" name="beneficiario" placeholder="Nombre beneficiario">
+                                    <div id="productos-container">
+                                        <!-- Contenedor para campos de productos adicionales -->
+                                    </div>
+                                    <button type="button" id="agregarProducto" style="background-color: lightcoral; border: dashed black;">Agregar Producto</button>
+                                    <br>
                                     <br>
                                     <button type="submit">Enviar Solicitud</button>
                                 </form>
                             </div>
-                            <div class="analisys">
-                                <h5>
-                                    Análisis solicitud
-                                </h5>
-
-                            </div>
-
+                            <script> 
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    // Obtener elementos del DOM
+                                    var agregarProductoBtn = document.getElementById("agregarProducto");
+                                    var productosContainer = document.getElementById("productos-container");
+                        
+                                    // Contador para asignar identificadores únicos a los campos de producto
+                                    var contadorProductos = 0;
+                        
+                                    // Función para agregar campos de producto adicionales
+                                    function agregarProducto() {
+                                        contadorProductos++;
+                        
+                                        var productoHtml = `
+                                        <div>
+                                            <label for="productName${contadorProductos}">Producto:</label>
+                                            <select id="productName${contadorProductos}" name="productName[]" required>
+                                                {% for nombre_producto in productos %}
+                                                <option value="{{ nombre_producto }}">{{ nombre_producto }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="cantidad${contadorProductos}">Cantidad:</label>
+                                            <input type="number" id="cantidad${contadorProductos}" name="cantidad[]" required>
+                                        </div>
+                                        `;
+                        
+                                        productosContainer.insertAdjacentHTML("beforeend", productoHtml);
+                                    }
+                        
+                                    // Manejar clic en el botón "Agregar Producto"
+                                    agregarProductoBtn.addEventListener("click", agregarProducto);
+                                });
+                            </script>
                         </div>
                         <!--
                         <div class="product-form">
@@ -225,6 +270,7 @@
                                         <div class="table-cell"><strong>Tipo</strong></div>
                                         <div class="table-cell"><strong>Beneficiario</strong></div>
                                         <div class="table-cell"><strong>Programa</strong></div>
+                                        <div class="table-cell"><strong>Detalle</strong></div>
                                     </div>
                                     {% for Solicitud in solicitudes %}
                                     <div class="table-row">
@@ -232,8 +278,9 @@
                                         <div class="table-cell">{{ Solicitud.fecha_solicitud }}</div>
                                         <div class="table-cell">{{ Solicitud.estado_solicitud }}</div>
                                         <div class="table-cell">{{ Solicitud.tipo_solicitud }}</div>
-                                        <div class="table-cell">{{ Solicitud.beneficiario    }}</div>
+                                        <div class="table-cell">{{ Solicitud.beneficiario }}</div>
                                         <div class="table-cell">{{ Solicitud.programa }}</div>
+                                        <div class="table-cell">{{ Solicitud.detalle_solicitud }}</div>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -249,6 +296,5 @@
 </div>
 
 <script src="{% static 'core\js\script.js' %}"></script>
-
 
 {% endblock %}

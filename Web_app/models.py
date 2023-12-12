@@ -67,10 +67,11 @@ class MovimientosInventario(models.Model):
     fecha_movimiento = models.DateField(blank=True, null=True)
     id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='id_producto', blank=True, null=True)
     id_solicitud = models.ForeignKey('Solicitud', models.DO_NOTHING, db_column='id_solicitud', blank=True, null=True)
-    id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario', blank=True, null=True)
+    id_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_usuario', blank=True, null=True, db_constraint=False)
+    proceso_completo = models.CharField(max_length=10, db_collation='Modern_Spanish_CI_AS', blank=True, null=True)
+    
 
     class Meta:
-        managed = False
         db_table = 'movimientos_inventario'
 
 
@@ -84,7 +85,6 @@ class Producto(models.Model):
     orden_compra = models.CharField(max_length=30, db_collation='Modern_Spanish_CI_AS', blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'producto'
 
 
@@ -95,9 +95,9 @@ class Solicitud(models.Model):
     tipo_solicitud = models.CharField(max_length=20, db_collation='Modern_Spanish_CI_AS', blank=True, null=True)
     beneficiario = models.CharField(max_length=30, db_collation='Modern_Spanish_CI_AS', blank=True, null=True)
     programa = models.CharField(max_length=50, db_collation='Modern_Spanish_CI_AS', blank=True, null=True)
+    detalle_solicitud = models.TextField(blank=True)
 
     class Meta:
-        managed = False
         db_table = 'solicitud'
 
 
@@ -113,7 +113,11 @@ class Sysdiagrams(models.Model):
         db_table = 'sysdiagrams'
         unique_together = (('principal_id', 'name'),)
 
-class UsuarioManager(BaseUserManager):
+class UsuarioSecondaryManager(BaseUserManager):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._db = 'secondary'
+
     def create_user(self, nombre_usuario, correo, clave, rol):
         # Validaciones y lógica de creación de usuario
         # ...
@@ -124,8 +128,10 @@ class UsuarioManager(BaseUserManager):
             clave=clave,
             rol=rol,
         )
-        user.save(using=self._db)
+        user.save(using=self._db)  # Guardar en la base de datos secundaria
         return user
+
+    # Otros métodos del manager...
 
 class Usuario(models.Model):
     id_usuario = models.FloatField(primary_key=True)
@@ -135,10 +141,10 @@ class Usuario(models.Model):
     rol = models.CharField(max_length=50)
 
     REQUIRED_FIELDS = ['nombre_usuario', 'clave', 'rol']
+    
+    USERNAME_FIELD = 'correo'
 
-    objects = UsuarioManager()
-
-    USERNAME_FIELD = 'correo'  # Campo que se usa para el login
+    objects = UsuarioSecondaryManager()
 
     def check_password(self, password):
         # Implementa tu lógica para verificar la contraseña aquí
@@ -157,3 +163,7 @@ class Usuario(models.Model):
     
     def get_username(self):
         return self.correo
+    
+    class Meta:
+        app_label = 'Web_app'
+        db_table = 'Web_app_usuario'

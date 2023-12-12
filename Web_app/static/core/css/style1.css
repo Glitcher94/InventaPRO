@@ -3,10 +3,21 @@
     background-color: rgb(140, 20, 20);
     border: solid rgb(140, 20, 20);
     height: 9vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 1vh;
+    padding-right: 1vh;
 }
 
 .sup-panel>h1 {
     color: white;
+}
+
+.sup-panel>p {
+    margin: 0;
+    padding-left: 1vh;
+    padding-right: 1vh;
 }
 
 .mid-panel {
@@ -32,10 +43,25 @@
 }
 
 .nav-link.active {
-    background-color: rgb(140, 20, 20) !important;
+    background-color: rgb(140, 20, 20, 0.8) !important;
+    border: solid black;
     /* Fondo rojo cuando el botón está seleccionado */
     color: white !important;
     /* Color de texto blanco cuando el botón está seleccionado */
+}
+
+.nav-link.active .button-image {
+    filter: brightness(0) invert(1);
+}
+
+.nav-link:not(.active):hover .button-text,
+.nav-link:not(.active):hover .button-image {
+    filter: brightness(0) invert(1);
+}
+
+.nav-link:not(.active):hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
 }
 
 .rightpanel {
@@ -52,14 +78,14 @@
 }
 
 .fieldset {
-    background-color: rgb(140, 20, 20);
+    background-color: rgb(140, 20, 20, 0.7);
     border-radius: 15px;
     border-style: solid;
     padding-bottom: 1%;
     padding-left: 2%;
     padding-right: 2%;
     max-width: 100%;
-    height: 79.5vh;
+    height: 79.5vh; 
     /* Evita que la tabla se desborde del contenedor al hacer zoom */
 }
 
@@ -78,6 +104,19 @@
     border-color: black;
 }
 
+.filter-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1%;
+    color: white;
+}
+
+.filter-buttons>select {
+    border-radius: 5px;
+    height: 3vw;
+}
+
 .product-table {
     display: table;
     width: 100%;
@@ -93,7 +132,7 @@
     padding: 5px;
     border: 1px solid #000;
     font-size: x-small;
-    width: 16.67%; /* Esto divide el ancho total en 6 columnas, cada una ocupará 16.67% */
+    width: 14.28%; /* Esto divide el ancho total en 6 columnas, cada una ocupará 16.67% */
     box-sizing: border-box; /* Considera el borde y el relleno en el ancho total */
 }
 
@@ -111,17 +150,17 @@
 
 .request-table .table-cell {
     display: table-cell;
-    padding: 5px;
     border: 1px solid #000;
+    padding: 1%;
     font-size: x-small;
-    min-width: 100px; /* Ancho mínimo de cada celda */
-    width: auto; /* Anchura automática basada en el contenido */
+    width: 20%;
+    min-width: 20vh; /* Ancho mínimo de cada celda */ /* Anchura automática basada en el contenido */
     word-wrap: break-word; /* Permite que el texto se rompa y ajuste al ancho */
     box-sizing: border-box; /* Considera el borde y el relleno en el ancho total */
 }
 
 .scrollable-container {
-    max-height: 55vh;
+    height: 78%;
     overflow-y: auto;
     border: solid;
     background-color: white;
@@ -171,7 +210,7 @@
 
 .user-form, .user-list {
     width: 300px;
-    height: 370px;
+    max-height: 370px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -206,9 +245,10 @@
     background-color: #0056b3;
 }
 
-.user-list>ul {
+.user-list>#userList {
     list-style: none;
     padding: 0;
+    overflow: auto;
 }
 
 li {
@@ -266,24 +306,24 @@ li {
     text-align: center;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 2%;
 }
 
 .product-form {
     display: flex;
     justify-content: center;
-    width: 400px;
+    width: 40%;
     height: 50vh;
     margin: 20px auto;
-    padding: 20px;
     border-radius: 5px;
-    border: solid black ;
+    color: white;
 }
 
 .product-form>form {
     display: flex; 
     justify-content: space-around;
     flex-direction: column;
+    width: 90%;
 } 
 
 .product-form>h2 {
@@ -300,7 +340,7 @@ li {
 }
 
 .product-form>input, .product-form>select {
-    width: 100%;
+    width: 800px;
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #ccc;
@@ -320,31 +360,12 @@ li {
     background-color: #0056b3;
 }
 
-.product-list {
-    width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
-
-.product-list>h2 {
-    font-size: 20px;
-    color: #007bff;
-}
-
-.product-list>ul {
-    list-style: none;
-    padding: 0;
-}
-
-.product-list>li {
-    margin: 10px 0;
-}
-
 .product-preview {
+    display: flex;
+    flex-direction: column;
     background-color: white;
+    width: 50%;
+    border-radius: 7px;
 }
 
 
@@ -397,7 +418,7 @@ li {
 }
 
 .solicitud-form button {
-    background-color: #007bff;
+    background-color: rgb(44, 44, 44);
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -406,7 +427,7 @@ li {
 }
 
 .solicitud-form button:hover {
-    background-color: #0056b3;
+    background-color: rgb(77, 77, 77);
 }
 
 .aprobacion {
@@ -431,7 +452,7 @@ li {
 }
 
 button {
-    background-color: #007bff;
+    background-color: rgb(44, 44, 44);
     color: #fff;
     padding: 5px 10px;
     border: none;
@@ -440,5 +461,5 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: rgb(77, 77, 77);
 }

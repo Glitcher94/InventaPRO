@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout as auth_logout
 Usuario = get_user_model()
 
 
@@ -31,9 +32,9 @@ def index(request):
                 return HttpResponseRedirect('core/acceso_admin')
             elif user.rol == 'Trabajadora Social':
                 return HttpResponseRedirect('core/vista_trab_social') 
-            elif user.rol == 'DIDECO':
+            elif user.rol == 'Jefe DIDECO':
                 return HttpResponseRedirect('core/vista_jefe_dideco')
-            elif user.rol == 'Bodeguero':
+            elif user.rol == 'Encargado Bodega':
                 return HttpResponseRedirect('core/vista_enc_bodega')
             elif user.rol == 'Encargada inventario social':
                 return HttpResponseRedirect('core/vista_enc_bodega')
@@ -42,6 +43,13 @@ def index(request):
         return render(request, 'core/index.html', {'error': 'Credenciales incorrectas'})
 
     return render(request, 'core/index.html')
+
+
+def custom_logout(request):
+    # Realiza el cierre de sesión
+    auth_logout(request)
+    # Redirige a la página principal ('index.html' en tu caso)
+    return redirect('core/index')
 
 @login_required
 @transaction.atomic
@@ -63,6 +71,9 @@ def vista_enc_bodega(request):
     data2 = Solicitud.objects.all()  # Obtener todas las solicitudes
 
     context = {"inventario": data, "categorias": selec_categorias, "solicitudes": data2}
+
+    if 'limpiar_filtros' in request.GET:
+        return redirect('core/vista_enc_bodega')
 
     if request.method == 'POST':
         if 'productName' in request.POST:
@@ -172,6 +183,18 @@ def vista_jefe_dideco(request):
 
 
 
+def generar_id_movimiento():
+    fecha_actual = datetime.now()
+    t_stamp = int(fecha_actual.timestamp()) * 1000
+    # Utiliza un contador autoincrementable para los últimos 3 dígitos
+    if not hasattr(generar_id_movimiento, "contador"):
+        generar_id_movimiento.contador = 0
+    generar_id_movimiento.contador += 1
+    id_movimiento = f"{t_stamp}{generar_id_movimiento.contador:03d}"  # Asegura 3 dígitos
+
+    return id_movimiento
+
+
 @login_required
 def vista_trab_social(request):
     data = Producto.objects.all()  # Obtén todos los productos
@@ -193,59 +216,54 @@ def vista_trab_social(request):
     context = {"inventario": data, "categorias": selec_categorias, "productos": selec_productos, "solicitudes": data2 }
 
     if request.method == 'POST':
+        # Obtener los datos de la solicitud
         fecha = request.POST['fecha']
         orden_compra = request.POST['ordenCompra']
         programa = request.POST['programa']
         tipo_solicitud = request.POST['tipo_solicitud']
-        producto = request.POST['productName']
-        cantidad = request.POST['cantidad']
         beneficiario = request.POST['beneficiario']
 
-        User = get_user_model()
+        # Obtener los productos y cantidades seleccionados
+        productos = request.POST.getlist('productName[]')
+        cantidades = request.POST.getlist('cantidad[]')
 
+        # Crear el string con formato de lista para el detalle de la solicitud
+        detalle_solicitud = ', '.join([f'{producto}: {cantidad}' for producto, cantidad in zip(productos, cantidades)])
+
+        # Crear la nueva solicitud y guardarla en la base de datos
         nueva_solicitud = Solicitud(
             fecha_solicitud=fecha,
             tipo_solicitud=tipo_solicitud,
             estado_solicitud='Pendiente', 
             beneficiario=beneficiario, 
-            programa=programa
+            programa=programa,
+            detalle_solicitud=detalle_solicitud
         )
-        nueva_solicitud.save()
+            
+        nueva_solicitud.save()  # La ID se generará mediante el trigger
 
         '''
-        def generar_id_movimiento():
-            fecha_actual = datetime.now()
-            t_stamp = int(fecha_actual.timestamp()) * 1000
-            # Utiliza un contador autoincrementable para los últimos 3 dígitos
-            if not hasattr(generar_id_movimiento, "contador"):
-                generar_id_movimiento.contador = 0
-            generar_id_movimiento.contador += 1
-            id_movimiento = f"{t_stamp}{generar_id_movimiento.contador:03d}"  # Asegura 3 dígitos
-        
-            return id_movimiento
-
-        if producto:
-            # Buscar el objeto Producto por su nombre
+        for producto, cantidad in zip(productos, cantidades):
             producto_obj = get_object_or_404(Producto, nombre_producto=producto)
             id_movimiento = generar_id_movimiento()
-            usuario_aut = User.objects.get(pk=request.user.pk)
 
             nuevo_movimiento = MovimientosInventario(
                 id_movimiento=id_movimiento,
                 id_producto=producto_obj,
                 cantidad=cantidad,
-                tipo_movimiento='egreso',  # Tipo de movimiento 'egreso'
-                id_usuario=usuario_aut,  # Si tienes el usuario actual
-                id_solicitud=nueva_solicitud,
-                fecha_movimiento=datetime.now()  # Fecha actual
+                tipo_movimiento='egreso',
+                id_usuario=request.user,  # Asigna directamente el usuario actual
+                id_solicitud=nueva_solicitud.id_solicitud,  # Utiliza la ID generada por el trigger
+                fecha_movimiento=datetime.now(),
+                proceso_completo='no'
             )
             nuevo_movimiento.save()
-            '''
+            
+        '''
 
         messages.success(request, '¡Solicitud enviada con éxito!')
 
         return redirect('core/vista_trab_social')
-
 
     return render(request, 'core/vista_trab_social.html', context)
 

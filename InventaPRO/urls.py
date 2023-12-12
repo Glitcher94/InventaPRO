@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 from Web_app import views
 
@@ -27,5 +28,6 @@ urlpatterns = [
     path('core/vista_trab_social', views.vista_trab_social, name="core/vista_trab_social"),
     path('core/acceso_admin', views.acceso_admin, name="core/acceso_admin"),
     path('core/update_quantity/<int:product_id>/<int:new_quantity>/', views.update_quantity, name="core/update_quantity"),
-    path('core/update_name/<int:product_id>/<str:new_name>/', views.update_name, name="core/update_name")
+    path('core/update_name/<int:product_id>/<str:new_name>/', views.update_name, name="core/update_name"),
+    path('logout/', views.custom_logout, name='logout')
 ]

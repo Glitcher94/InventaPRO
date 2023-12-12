@@ -12,26 +12,6 @@
         <title>{% block title %}Document{% endblock %}</title>
         <!--<link rel="stylesheet" type="text/css" href="CSS/form.css">-->
         <link rel="stylesheet" href="{% static 'core\css\style1.css' %}">
-        <script>
-            function validarFormulario() {
-                var nombres = document.getElementById("nombres").value;
-                var apellidos = document.getElementById("apellidos").value;
-                var rol = document.getElementById("rol").value;
-                var nombreUsuario = document.getElementById("nombre-usuario").value;
-                var contrasena = document.getElementById("contrasena").value;
-
-
-                if (nombres === "" || apellidos === "" || rol === "" || contrasena === "" || nombreUsuario === "") {
-                    alert("Todos los campos son obligatorios. Por favor, llénelos.");
-                    return false;
-                }
-
-                if (contrasena.length < 8) {
-                    alert("La contraseña debe tener al menos 8 caracteres.");
-                    return false;
-                }
-            }
-        </script>
     </head>
 
     <body>
@@ -47,9 +27,14 @@
             </script>
 
         <div class="sup-panel">
-            <h1>
+            <img src="{% static 'core\img\loogo.jpg' %}" alt="" style="height: 3.5vw; width: 3.5vw; border-radius: 4px;">
+            <h1 style="padding-left: 1vw; padding-right: 1vw;">
                 InventaPRO
-            </h1>   
+            </h1>
+            {% if user.is_authenticated %}
+                <p>Bienvenido/a, {{ user.nombre_usuario }}</p>
+            {% endif %}
+            <a href="{% url 'logout' %}" class="btn btn-danger btn-sm"">Cerrar sesión</a>
         </div>
         {% block content %}
 

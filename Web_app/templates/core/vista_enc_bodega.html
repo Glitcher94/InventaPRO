@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}InventaPRO - Sesión: encargado bodega/inventario social{% endblock %}
 
 {% block content %}
 <div class="mid-panel">
@@ -12,18 +12,34 @@
     </style>
     <div class="leftpanel">
         <br>
-        <br>
         <div class="nav flex-column nav-pills lg-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
-                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Stock Actual</button>
+                type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" onclick="toggleButton(this)">
+                Stock Actual
+                <br>
+                <img src="{% static 'core\img\Warehouse.png' %}" alt="" class="button-image">
+            </button>
+            <br>
             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Registrar
-                Producto</button>
-            <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
-                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Históricos</button>
+                type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="toggleButton(this)">
+                Registrar Producto Nuevo
+                <br>
+                <img src="{% static 'core\img\New Product.png' %}" alt="" class="button-image">
+            </button>
+            <br>
             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-                type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Solicitudes
-                Aprobadas</button>
+            type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="toggleButton(this)">
+            Solicitudes Aprobadas
+                <br>
+                <img src="{% static 'core\img\Order Completed.png' %}" alt="" class="button-image">
+            </button>
+            <br>
+            <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
+                type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" onclick="toggleButton(this)">
+                Históricos
+                <br>
+                <img src="{% static 'core\img\Date Span.png' %}" alt="" class="button-image">
+            </button>
         </div>
     </div>
     <div class="rightpanel">
@@ -32,18 +48,20 @@
                 tabindex="0">
                 <div class="fieldset">
                     <h4>Listado de Productos</h4>
-                    <div class="filter-buttons">
-                        <a class="btn btn-light" href="?categoria=Material de Aseo" role="button">Filtrar por Material
-                            de Aseo</a>
-                        <a class="btn btn-light" href="?categoria=Material de oficina" role="button">Filtrar por
-                            Material de Oficina</a>
-                        <a class="btn btn-light" href="?categoria=Ayuda social" role="button">Filtrar por
-                            Ayuda social</a>
+                    <div class="filter-buttons"> Filtros:
                         <br>
-                        <a class="btn btn-light" href="?estado=En stock" role="button">Filtrar por Disponibildad: "En
-                            Stock"</a>
-                        <a class="btn btn-light" href="?estado=Agotado" role="button">Filtrar por Disponibildad:
-                            "Agotado"</a>
+                        <select onchange="location = this.value;">
+                            <option value="">Filtrar por categoría</option>
+                            <option value="?categoria=Material de Aseo">Material de Aseo</option>
+                            <option value="?categoria=Material de oficina">Material de Oficina</option>
+                            <option value="?categoria=Ayuda social">Ayuda social</option>
+                        </select>
+                        <select onchange="location = this.value;">
+                            <option value="">Filtrar por Disponibilidad de producto</option>
+                            <option value="?estado=En stock">En Stock</option>
+                            <option value="?estado=Agotado">Agotado</option>
+                        </select>
+                        <a href="?limpiar_filtros=True" class="btn btn-danger btn-sm">Limpiar filtros</a>
                     </div>
                     <div class="scrollable-container">
                         <div class="product-table">
@@ -109,13 +127,14 @@
                                 <input type="text" id="productUnitType" name="productUnitType" required>
                                 <label for="productBuyOrder">Orden de compra: </label>
                                 <input type="text" id="productBuyOrder" name="productBuyOrder" required>
-
+                                <br>
                                 <button type="submit">Registrar Producto</button>
                             </form>
                         </div>
-                        <div class="product-preview"
-                            style="display: flex; flex-direction: column; background-color: white; padding: 2px;">
+                        <div class="product-preview">
                             <h3>Vista Previa del Producto</h3>
+                            <br>
+                            <br>
                             <table id="previewTable">
                                 <tr>
                                     <th>Nombre</th>
