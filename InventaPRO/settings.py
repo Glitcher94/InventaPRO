@@ -14,22 +14,25 @@ from pathlib import Path
 import os
 from django.contrib.auth import get_user_model
 
+from pathlib import Path
+from dotenv import load_dotenv
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_DIR = os.path.join(BASE_DIR, "Web_app")
-
-
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5)=70sn5-&@=%0t%(_v(=fr6(rb6uhd&jqyx2@j^4uw-m3!l5z'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-5)=70sn5-&@=%0t%(_v(=fr6(rb6uhd&jqyx2@j^4uw-m3!l5z')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').lower() in ['true', 't', '1']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -91,6 +94,9 @@ WSGI_APPLICATION = 'InventaPRO.wsgi.application'
 #    }
 #}
 
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
+}
 
 DATABASES = {
     'default':{
